@@ -1,0 +1,66 @@
+{
+    "indicators": [
+        {
+            "field": "ahah_v4_ah4ahah_pct",
+            "label": "AHAH Pct",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4ahah_pct"
+                    ]
+                ],
+                "#26bd00",
+                1,
+                "hsl(-348, 100%, 37%)",
+                2,
+                "#1ce31a",
+                3,
+                "#2afc4e",
+                4,
+                "#3cfd8d",
+                5,
+                "#4cfeb2",
+                6,
+                "#76fed9",
+                7,
+                "#a0ffed",
+                8,
+                "#e0ff9d"
+            ]
+        },
+        {
+            "field": "uk_imd2019_SOA_decile",
+            "label": "IMD 2019",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "uk_imd2019_SOA_decile"
+                    ]
+                ],
+                "#bd0026",
+                1,
+                "hsl(348, 100%, 37%)",
+                2,
+                "#e31a1c",
+                3,
+                "#fc4e2a",
+                4,
+                "#fd8d3c",
+                5,
+                "#feb24c",
+                6,
+                "#fed976",
+                7,
+                "#ffeda0",
+                8,
+                "#ff9de0"
+            ]
+        }
+    ]
+}

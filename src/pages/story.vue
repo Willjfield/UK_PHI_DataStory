@@ -3,23 +3,28 @@
   <v-container class="pa-0" fluid height="100dvh">
     <v-row class="my-0" max-height="100dvh">
       <v-col class="pa-0 transition-all duration-500" :cols="sidebarCollapsed ? 12 : 8">
-        <Map :_center="[-2, 55]" :_zoom="4" style="height: 100dvh; width: 100%;" />
-        <v-btn class="expand toggle-btn" :class="{ sidebarCollapsed }" color="primary"
+        <Map :_center="[-2, 55]" :_collapsed="sidebarCollapsed" :_zoom="4" style="height: 100dvh; width: 100%;" />
+        <v-btn
+          class="expand toggle-btn" :class="{ sidebarCollapsed }" color="primary"
           :prepend-icon="sidebarCollapsed ? 'mdi-chevron-left' : 'mdi-chevron-right'" size="x-small" stacked
-          :text="sidebarCollapsed ? 'expand' : 'collapse'" variant="flat" @click="toggleSidebar" />
+          text="expand" variant="flat" @click="toggleSidebar"
+        />
       </v-col>
-      <v-col class="pa-2 transition-all duration-500" :cols="sidebarCollapsed ? 0 : 4" :style="{
-        overflowX: sidebarCollapsed ? 'hidden' : 'visible',
-        overflowY: 'hidden',
-        width: sidebarCollapsed ? '0' : 'auto',
-        padding: sidebarCollapsed ? '0' : '8px',
-        maxHeight: '100dvh'
-      }">
-        <v-btn class="toggle-btn" :class="{ sidebarCollapsed }" color="primary" rounded="0"
-          :prepend-icon="sidebarCollapsed ? 'mdi-chevron-left' : 'mdi-chevron-right'" size="x-small" stacked
-          text="collapse" variant="flat" @click="toggleSidebar" />
+      <v-col
+        class="pa-0 transition-all duration-500" :cols="sidebarCollapsed ? 0 : 4" :style="{
+
+          overflowY: 'hidden',
+          width: sidebarCollapsed ? '0' : 'auto',
+          maxHeight: '100dvh'
+        }"
+      >
+        <v-btn
+          class="toggle-btn" :class="{ sidebarCollapsed }" color="primary" :prepend-icon="sidebarCollapsed ? 'mdi-chevron-left' : 'mdi-chevron-right'"
+          rounded="0" size="x-small" stacked
+          text="collapse" variant="flat" @click="toggleSidebar"
+        />
         <div class="sidebar-content" :class="{ 'sidebar-hidden': sidebarCollapsed }">
-          <div class="my-2" style="height: 2em; width:100%">
+          <div class="py-2" style="height: 3.5em; width:100%">
             <v-img max-width="180px" src="/phi-uk_logo_small.png" style="margin:0 auto;" />
           </div>
           <v-divider />
@@ -54,14 +59,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import Map from '@/components/map.vue'
+  import { ref } from 'vue'
+  import Map from '@/components/map.vue'
 
-const sidebarCollapsed = ref(false)
+  const sidebarCollapsed = ref(false)
 
-function toggleSidebar() {
-  sidebarCollapsed.value = !sidebarCollapsed.value
-}
+  function toggleSidebar () {
+    sidebarCollapsed.value = !sidebarCollapsed.value
+  }
 </script>
 
 <style scoped>
@@ -73,12 +78,15 @@ function toggleSidebar() {
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   opacity: 1;
   transform: translateX(0);
+  height: 100%;
+    background: white;
 }
 
 .sidebar-hidden {
   opacity: 0;
   transform: translateX(-100%);
   height: 0;
+
 }
 
 /* .sidebar-hidden */
@@ -86,7 +94,7 @@ function toggleSidebar() {
 .toggle-btn {
   position: fixed;
   top: 0%;
-  transform: translateX(calc(-100% + -8px));
+  transform: translateX(calc(-100%));
   z-index: 1000;
   transition: all 0.3s ease-in-out;
 }
@@ -96,7 +104,9 @@ function toggleSidebar() {
   display: none;
   transition-delay: 0.3s;
 }
-
+.sidebarCollapsed.toggle-btn {
+  display: none;
+}
 .sidebarCollapsed.expand.toggle-btn {
   right: 0;
   opacity: 1;
@@ -108,7 +118,7 @@ function toggleSidebar() {
 .scrollable-container {
   overflow-y: scroll;
   position: absolute;
-  top: calc(2em + 16px);
-  height: calc(100dvh - 2em - 16px);
+  top: calc(3.5em + 16px);
+  height: calc(100dvh - 3.5em - 16px);
 }
 </style>
