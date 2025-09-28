@@ -8,7 +8,7 @@
 <script lang="ts" setup>
   import maplibregl from 'maplibre-gl'
   import { Protocol } from 'pmtiles'
-  import { onMounted, onUnmounted, ref } from 'vue'
+  import { onMounted, onUnmounted, ref, watch } from 'vue'
   import * as mapStyle from '@/assets/basic.json'
   import { indicators } from '@/assets/indicators.json'
   import Compare from '@/assets/maplibre-gl-compare.js'
@@ -30,6 +30,7 @@
     _center: [number, number]
     _zoom: number
     _collapsed: boolean
+    _type: string
   }>()
 
   const choroplethIDs = new Set(['oa-england', 'oa-scotland', 'oa-wales', 'oa-northern-ireland'])
@@ -54,6 +55,13 @@
     return l
   })
 
+  let _compare: Compare
+  // Watch for changes in props._type and execute function based on value
+  watch(() => props._type, (newType, oldType) => {
+    console.log(`Type changed from ${oldType} to ${newType}`)
+    if (_compare) _compare.switchType(newType)
+  })
+
   onMounted(() => {
     // Ensure the container is properly initialized
     if (mapContainerLeft.value) {
@@ -67,7 +75,7 @@
       leftMap.on('mousemove', e => {
         const features = leftMap.queryRenderedFeatures(e.point, { layers: ['oa-england', 'oa-wales', 'oa-scotland', 'oa-northern-ireland'] })
         if (features.length === 0) return
-        console.log(features[0]?.properties)
+        //console.log(features[0]?.properties)
       })
     }
 
@@ -86,7 +94,7 @@
       })
     }
 
-    new Compare(leftMap, rightMap, comparisonContainer, {})
+    _compare = new Compare(leftMap, rightMap, comparisonContainer, { type: props._type })
   })
 
   onUnmounted(() => {
@@ -105,7 +113,8 @@
   bottom: 0;
   cursor: crosshair !important;
   width: 68%;
-  transition: all .3s ease-in-out;
+  transition: width .3s ease-in-out;
+  border-left: 1px solid black;
 }
 
 .map-container.collapsed{

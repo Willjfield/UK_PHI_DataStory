@@ -1,9 +1,18 @@
 <!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <v-container class="pa-0" fluid height="100dvh">
+    <v-switch v-model="compareType" class="map-type-switch ma-2" density="compact" false-value="slider" hide-details true-value="sideBySide">
+      <template #prepend>
+        <div class="divide" />
+        <v-icon id="split-map">mdi-map</v-icon>
+      </template>
+      <template #append>
+        <v-icon>mdi-map</v-icon>|<v-icon>mdi-map</v-icon>
+      </template>
+    </v-switch>
     <v-row class="my-0" max-height="100dvh">
       <v-col class="pa-0 transition-all duration-500" :cols="sidebarCollapsed ? 12 : 8">
-        <Map :_center="[-2, 55]" :_collapsed="sidebarCollapsed" :_zoom="4" style="height: 100dvh; width: 100%;" />
+        <Map :_center="[-2, 55]" :_collapsed="sidebarCollapsed" :_type="compareType" :_zoom="4" style="height: 100dvh; width: 100%;" />
         <v-btn
           class="expand toggle-btn" :class="{ sidebarCollapsed }" color="primary"
           :prepend-icon="sidebarCollapsed ? 'mdi-chevron-left' : 'mdi-chevron-right'" size="x-small" stacked
@@ -28,7 +37,8 @@
             <v-img max-width="180px" src="/phi-uk_logo_small.png" style="margin:0 auto;" />
           </div>
           <v-divider />
-          <div class="scrollable-container">
+          <div ref="scrollableContainer" class="scrollable-container">
+            <div class="fade-bottom"></div>
             <v-card class="mx-8" subtitle="What is multiple disadvantage?" title="Multiple Disadvantage" variant="text">
               <template #text>
                 People facing multiple disadvantage experience a combination of problems. For many, their current
@@ -45,14 +55,23 @@
                 their communities.
               </template>
             </v-card>
-            <v-btn block prepend-icon="mdi-chevron-down" variant="plain">Scroll down to read more</v-btn>
-            <v-card class="ma-8" subtitle="First part" title="The Story" variant="text">
+            <v-divider/>
+            <v-card class="ma-8" subtitle="AHAH vs. IMD" title="Glasgow, Scotland" variant="text">
               <template #text>
-                Story 1
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis ex sit amet efficitur dictum. Vivamus et volutpat sem, quis pretium nisi. Fusce mi urna, gravida eu justo in, molestie congue turpis. Curabitur dapibus erat ac nunc suscipit tempor. Ut finibus facilisis risus. Nulla facilisi. Donec mattis cursus imperdiet. Sed sed eleifend lectus. Phasellus dolor nulla, fringilla eget felis non, viverra mattis orci. Suspendisse et finibus velit, nec finibus lorem. Etiam lorem leo, malesuada ut nisl at, dapibus faucibus odio. Nullam auctor finibus pulvinar. Suspendisse vitae tortor in lectus vehicula ornare in vel nunc. Suspendisse eleifend leo lectus, sit amet gravida sem scelerisque finibus.
+              </template>
+            </v-card>
+            <v-divider/>
+            <v-card class="ma-8" subtitle="Var 2 vs. Var 3" title="Manchester, England" variant="text">
+              <template #text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis ex sit amet efficitur dictum. Vivamus et volutpat sem, quis pretium nisi. Fusce mi urna, gravida eu justo in, molestie congue turpis. Curabitur dapibus erat ac nunc suscipit tempor. Ut finibus facilisis risus. Nulla facilisi. Donec mattis cursus imperdiet. Sed sed eleifend lectus. Phasellus dolor nulla, fringilla eget felis non, viverra mattis orci. Suspendisse et finibus velit, nec finibus lorem. Etiam lorem leo, malesuada ut nisl at, dapibus faucibus odio. Nullam auctor finibus pulvinar. Suspendisse vitae tortor in lectus vehicula ornare in vel nunc. Suspendisse eleifend leo lectus, sit amet gravida sem scelerisque finibus.
               </template>
             </v-card>
           </div>
+          <v-btn class="scroll-prompt" block prepend-icon="mdi-chevron-down" variant="plain"></v-btn>
+
         </div>
+
       </v-col>
     </v-row>
   </v-container>
@@ -63,6 +82,17 @@
   import Map from '@/components/map.vue'
 
   const sidebarCollapsed = ref(false)
+  const compareType = ref('slider')
+  const scrollableContainer = ref()
+  const showScrollPrompt = ref(true)
+  onMounted(() => {
+    scrollableContainer.value.addEventListener('scroll', e => {
+      // const scrollTop = e.target.scrollTop;
+      // if (scrollTop > 10) {
+      //   showScrollPrompt.value = false
+      // }
+    })
+  })
 
   function toggleSidebar () {
     sidebarCollapsed.value = !sidebarCollapsed.value
@@ -118,7 +148,48 @@
 .scrollable-container {
   overflow-y: scroll;
   position: absolute;
-  top: calc(3.5em + 16px);
-  height: calc(100dvh - 3.5em - 16px);
+  top: calc(3.5em);
+  height: calc(100dvh - 3.5em);
+}
+.map-type-switch{
+  position: absolute;
+    z-index: 2;
+    background: #ffffff69;
+    padding: 0 4px;
+    color: #474747;
+    box-shadow: #00000026 3px 2px 12px;
+}
+
+.divide{
+  position: absolute;
+    border-right: 2px solid #ffffff;
+    left: 15px;
+    height: 1.5em;
+    z-index: 1;
+}
+
+.fade-bottom{
+  position: fixed;
+    background: linear-gradient(0deg, white 19%, transparent 36%);
+    z-index: 2;
+    pointer-events: none;
+    height: 100%;
+    left: 0;
+    right: 0;
+}
+.scroll-prompt{
+  position: absolute;
+  bottom: 0;
+  z-index: 3;
+}
+</style>
+<style>
+
+.map-type-switch.v-input--horizontal .v-input__prepend{
+  margin-inline-end: 8px;
+}
+
+.map-type-switch.v-input--horizontal .v-input__append {
+    margin-inline-start: 8px;
 }
 </style>

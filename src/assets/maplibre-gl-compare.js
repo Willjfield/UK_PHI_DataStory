@@ -57,6 +57,14 @@ function Compare (a, b, container, options) {
       'Invalid container specified. Must be CSS selector or HTML element.',
     )
   }
+  // const self = this
+  // this._controlContainer.addEventListener('resize', () => {
+  //   if(self.type === 'sideBySide'){
+  //     let swiperPosition
+  //     = (self._horizontal ? self._bounds.height : self._bounds.width) / 2
+  //     self._setPosition(swiperPosition)
+  //   }
+  // })
 
   this._bounds = b.getContainer().getBoundingClientRect()
   let swiperPosition
@@ -66,24 +74,16 @@ function Compare (a, b, container, options) {
 
   this._clearSync = syncMove(a, b)
   this._onResize = function () {
-    this._bounds = b.getContainer().getBoundingClientRect()
-    if (this.currentPosition) {
-      this._setPosition(this.currentPosition)
-    }
+    this._bounds = a.getContainer().getBoundingClientRect()
   }.bind(this)
 
   b.on('resize', this._onResize)
 
-  if (this.options && this.options.mousemove) {
-    a.getContainer().addEventListener('mousemove', this._onMove)
-    b.getContainer().addEventListener('mousemove', this._onMove)
-  }
-
-  this._swiper.addEventListener('mousedown', this._onDown)
-  this._swiper.addEventListener('touchstart', this._onDown)
+  this.switchType(this?.options?.type || 'slider', a, b)
 }
 
 Compare.prototype = {
+
   _setPointerEvents (v) {
     this._controlContainer.style.pointerEvents = v
     this._swiper.style.pointerEvents = v
@@ -100,7 +100,6 @@ Compare.prototype = {
   },
 
   _setPosition (x) {
-
     x = Math.min(
       x,
       this._horizontal ? this._bounds.height : this._bounds.width,
@@ -123,6 +122,7 @@ Compare.prototype = {
   },
 
   _onMove (e) {
+    console.log('on move')
     if (this.options && this.options.mousemove) {
       this._setPointerEvents(e.touches ? 'auto' : 'none')
     }
@@ -130,8 +130,6 @@ Compare.prototype = {
     this._horizontal
       ? this._setPosition(this._getY(e))
       : this._setPosition(this._getX(e))
-
-
   },
 
   _onMouseUp () {
@@ -170,6 +168,38 @@ Compare.prototype = {
     return y
   },
 
+  switchType (_type = 'slider') {
+    const a = this._mapA
+    const b = this._mapB
+    let swiperPosition
+      = (this._horizontal ? this._bounds.height : this._bounds.width) / 2
+    this._setPosition(swiperPosition)
+    if (_type === 'sideBySide') {
+      a.getContainer().style.clip = null
+      b.getContainer().style.clip = 'unset'
+      b.getContainer().style.transform = 'translateX(50%)'
+      this._controlContainer.style.display = 'none'
+      // document.querySelectorAll('.compare-swiper-vertical')[0].style.display = 'none'
+      if (this.options && this.options.mousemove) {
+        a.getContainer().removeEventListener('mousemove', this._onMove)
+        b.getContainer().removeEventListener('mousemove', this._onMove)
+      }
+      this._swiper.removeEventListener('mousedown', this._onDown)
+      this._swiper.removeEventListener('touchstart', this._onDown)
+    } else {
+      this._controlContainer.style.display = 'inline-block'
+      // document.querySelectorAll('.compare-swiper-vertical')[0].style.display = 'inline-block'
+      b.getContainer().style.left = '-12px'
+      b.getContainer().style.transform = 'none'
+      if (this.options && this.options.mousemove) {
+        a.getContainer().addEventListener('mousemove', this._onMove)
+        b.getContainer().addEventListener('mousemove', this._onMove)
+      }
+
+      this._swiper.addEventListener('mousedown', this._onDown)
+      this._swiper.addEventListener('touchstart', this._onDown)
+    }
+  },
   /**
    * Set the position of the slider.
    *
