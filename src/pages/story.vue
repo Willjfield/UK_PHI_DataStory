@@ -21,7 +21,7 @@
       </v-col>
       <v-col
         class="pa-0 transition-all duration-500" :cols="sidebarCollapsed ? 0 : 4" :style="{
-
+          zIndex: 3,
           overflowY: 'hidden',
           width: sidebarCollapsed ? '0' : 'auto',
           maxHeight: '100dvh'
@@ -33,12 +33,12 @@
           text="collapse" variant="flat" @click="toggleSidebar"
         />
         <div class="sidebar-content" :class="{ 'sidebar-hidden': sidebarCollapsed }">
-          <div class="py-2" style="height: 3.5em; width:100%">
+          <div class="py-2" style="height: 3.5em; width:100%;">
             <v-img max-width="180px" src="/phi-uk_logo_small.png" style="margin:0 auto;" />
           </div>
           <v-divider />
           <div ref="scrollableContainer" class="scrollable-container">
-            <div class="fade-bottom"></div>
+            <div class="fade-bottom" />
             <v-card class="mx-8" subtitle="What is multiple disadvantage?" title="Multiple Disadvantage" variant="text">
               <template #text>
                 People facing multiple disadvantage experience a combination of problems. For many, their current
@@ -55,20 +55,20 @@
                 their communities.
               </template>
             </v-card>
-            <v-divider/>
+            <v-divider />
             <v-card class="ma-8" subtitle="AHAH vs. IMD" title="Glasgow, Scotland" variant="text">
               <template #text>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis ex sit amet efficitur dictum. Vivamus et volutpat sem, quis pretium nisi. Fusce mi urna, gravida eu justo in, molestie congue turpis. Curabitur dapibus erat ac nunc suscipit tempor. Ut finibus facilisis risus. Nulla facilisi. Donec mattis cursus imperdiet. Sed sed eleifend lectus. Phasellus dolor nulla, fringilla eget felis non, viverra mattis orci. Suspendisse et finibus velit, nec finibus lorem. Etiam lorem leo, malesuada ut nisl at, dapibus faucibus odio. Nullam auctor finibus pulvinar. Suspendisse vitae tortor in lectus vehicula ornare in vel nunc. Suspendisse eleifend leo lectus, sit amet gravida sem scelerisque finibus.
               </template>
             </v-card>
-            <v-divider/>
+            <v-divider />
             <v-card class="ma-8" subtitle="Var 2 vs. Var 3" title="Manchester, England" variant="text">
               <template #text>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis ex sit amet efficitur dictum. Vivamus et volutpat sem, quis pretium nisi. Fusce mi urna, gravida eu justo in, molestie congue turpis. Curabitur dapibus erat ac nunc suscipit tempor. Ut finibus facilisis risus. Nulla facilisi. Donec mattis cursus imperdiet. Sed sed eleifend lectus. Phasellus dolor nulla, fringilla eget felis non, viverra mattis orci. Suspendisse et finibus velit, nec finibus lorem. Etiam lorem leo, malesuada ut nisl at, dapibus faucibus odio. Nullam auctor finibus pulvinar. Suspendisse vitae tortor in lectus vehicula ornare in vel nunc. Suspendisse eleifend leo lectus, sit amet gravida sem scelerisque finibus.
               </template>
             </v-card>
           </div>
-          <v-btn class="scroll-prompt" block prepend-icon="mdi-chevron-down" variant="plain"></v-btn>
+          <v-btn block class="scroll-prompt" prepend-icon="mdi-chevron-down" variant="plain" />
 
         </div>
 
@@ -110,6 +110,7 @@
   transform: translateX(0);
   height: 100%;
     background: white;
+
 }
 
 .sidebar-hidden {

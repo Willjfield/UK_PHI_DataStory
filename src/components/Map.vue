@@ -1,5 +1,27 @@
 <template>
   <div id="comparison-container">
+    <div class="pa-2 ma-4 indicator-selectors" :class="{collapsed:_collapsed}">
+      <v-select
+        v-model="selectedLeftIndicator"
+        class="indicator-selector"
+        density="compact"
+        :items="indicators"
+        label="Left Map Indicator"
+        width="40%"
+        @change="changeIndicator('left')"
+        hide-details
+      />
+      <v-select
+        v-model="selectedRightIndicator"
+        class="indicator-selector"
+        density="compact"
+        :items="indicators"
+        label="Right Map Indicator"
+        width="40%"
+        @change="changeIndicator('right')"
+        hide-details
+      />
+    </div>
     <div ref="mapContainerLeft" class="map-container" :class="{collapsed:_collapsed}" />
     <div ref="mapContainerRight" class="map-container" :class="{collapsed:_collapsed}" />
   </div>
@@ -33,14 +55,13 @@
     _type: string
   }>()
 
-  const choroplethIDs = new Set(['oa-england', 'oa-scotland', 'oa-wales', 'oa-northern-ireland'])
+  const choroplethIDs: Set<string> = new Set(['oa-england', 'oa-scotland', 'oa-wales', 'oa-northern-ireland'])
 
   const defaultLeftIndicator = 'uk_imd2019_SOA_decile'
   const leftStyle = JSON.parse(JSON.stringify(mapStyle))
 
   leftStyle.layers = leftStyle.layers.map(l => {
     if (choroplethIDs.has(l.id)) {
-      console.log(l.id)
       l.paint['fill-color'] = indicators.find(i => i.field === defaultLeftIndicator)['fill-color']
     }
     return l
@@ -62,6 +83,27 @@
     if (_compare) _compare.switchType(newType)
   })
 
+  const selectedLeftIndicator = ref(defaultLeftIndicator)
+  const selectedRightIndicator = ref(defaultRightIndicator)
+
+  function changeIndicator (side: 'left' | 'right') {
+    if (side === 'left') {
+      leftStyle.layers = leftStyle.layers.map(l => {
+        if (choroplethIDs.has(l.id)) {
+          l.paint['fill-color'] = indicators.find(i => i.field === selectedLeftIndicator.value)['fill-color']
+        }
+        return l
+      })
+    } else {
+      rightStyle.layers = rightStyle.layers.map(l => {
+        if (choroplethIDs.has(l.id)) {
+          l.paint['fill-color'] = indicators.find(i => i.field === selectedRightIndicator.value)['fill-color']
+        }
+        return l
+      })
+    }
+  }
+
   onMounted(() => {
     // Ensure the container is properly initialized
     if (mapContainerLeft.value) {
@@ -75,7 +117,7 @@
       leftMap.on('mousemove', e => {
         const features = leftMap.queryRenderedFeatures(e.point, { layers: ['oa-england', 'oa-wales', 'oa-scotland', 'oa-northern-ireland'] })
         if (features.length === 0) return
-        //console.log(features[0]?.properties)
+        // console.log(features[0]?.properties)
       })
     }
 
@@ -124,4 +166,45 @@
 .maplibregl-canvas-container.maplibregl-interactive {
   cursor: crosshair !important;
 }
+
+.indicator-selectors {
+  position: absolute;
+  top: 0;
+  left: 33.33%;
+  transform: translateX(-50%);
+  width: auto;
+  background: transparent;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #e0e0e0;
+  border-top: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin: 8px;
+  gap: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: none;
+  transition: left 0.3s ease-in-out;
+
+}
+
+.indicator-selectors.collapsed {
+  /* width: calc(100% + 8px); */
+  left: 50%;
+  transition: left 0.3s ease-in-out;
+  /* transform: translateX(0); */
+}
+
+.indicator-selector {
+  width: 100%;
+  pointer-events: auto;
+}
+
 </style>
