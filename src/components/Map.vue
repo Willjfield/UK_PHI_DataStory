@@ -5,21 +5,25 @@
         v-model="selectedLeftIndicator"
         class="indicator-selector"
         density="compact"
+        hide-details
+        item-title="label"
+        item-value="field"
         :items="indicators"
         label="Left Map Indicator"
         width="40%"
-        @change="changeIndicator('left')"
-        hide-details
+        @update:modelValue="() => changeIndicator('left',leftMap,leftStyle)"
       />
       <v-select
         v-model="selectedRightIndicator"
         class="indicator-selector"
         density="compact"
+        hide-details
+        item-title="label"
+        item-value="field"
         :items="indicators"
         label="Right Map Indicator"
         width="40%"
-        @change="changeIndicator('right')"
-        hide-details
+        @update:modelValue="() => changeIndicator('right',rightMap,rightStyle)"
       />
     </div>
     <div ref="mapContainerLeft" class="map-container" :class="{collapsed:_collapsed}" />
@@ -60,21 +64,27 @@
   const defaultLeftIndicator = 'uk_imd2019_SOA_decile'
   const leftStyle = JSON.parse(JSON.stringify(mapStyle))
 
-  leftStyle.layers = leftStyle.layers.map(l => {
-    if (choroplethIDs.has(l.id)) {
-      l.paint['fill-color'] = indicators.find(i => i.field === defaultLeftIndicator)['fill-color']
-    }
-    return l
-  })
-
   const defaultRightIndicator = 'ahah_v4_ah4ahah_pct'
   const rightStyle = JSON.parse(JSON.stringify(mapStyle))
-  rightStyle.layers = rightStyle.layers.map(l => {
-    if (choroplethIDs.has(l.id)) {
-      l.paint['fill-color'] = indicators.find(i => i.field === defaultRightIndicator)['fill-color']
-    }
-    return l
-  })
+
+  const selectedLeftIndicator = ref(defaultLeftIndicator)
+  const selectedRightIndicator = ref(defaultRightIndicator)
+
+  function changeIndicator (side: 'left' | 'right', map: maplibregl.Map | null, style: any) {
+    console.log(side, map, style)
+    const _indicator = side === 'left' ? selectedLeftIndicator.value : selectedRightIndicator.value
+    style.layers = style.layers.map(l => {
+      if (choroplethIDs.has(l.id)) {
+        l.paint['fill-color'] = indicators.find(i => i.field === _indicator)['fill-color']
+      }
+      return l
+    })
+
+    map?.setStyle(style)
+  }
+
+  changeIndicator('left', null, leftStyle)
+  changeIndicator('right', null, rightStyle)
 
   let _compare: Compare
   // Watch for changes in props._type and execute function based on value
@@ -82,27 +92,6 @@
     console.log(`Type changed from ${oldType} to ${newType}`)
     if (_compare) _compare.switchType(newType)
   })
-
-  const selectedLeftIndicator = ref(defaultLeftIndicator)
-  const selectedRightIndicator = ref(defaultRightIndicator)
-
-  function changeIndicator (side: 'left' | 'right') {
-    if (side === 'left') {
-      leftStyle.layers = leftStyle.layers.map(l => {
-        if (choroplethIDs.has(l.id)) {
-          l.paint['fill-color'] = indicators.find(i => i.field === selectedLeftIndicator.value)['fill-color']
-        }
-        return l
-      })
-    } else {
-      rightStyle.layers = rightStyle.layers.map(l => {
-        if (choroplethIDs.has(l.id)) {
-          l.paint['fill-color'] = indicators.find(i => i.field === selectedRightIndicator.value)['fill-color']
-        }
-        return l
-      })
-    }
-  }
 
   onMounted(() => {
     // Ensure the container is properly initialized
@@ -117,7 +106,8 @@
       leftMap.on('mousemove', e => {
         const features = leftMap.queryRenderedFeatures(e.point, { layers: ['oa-england', 'oa-wales', 'oa-scotland', 'oa-northern-ireland'] })
         if (features.length === 0) return
-        // console.log(features[0]?.properties)
+        console.log('LEFT MAP')
+        console.log(features[0]?.properties)
       })
     }
 
@@ -132,7 +122,6 @@
       rightMap.on('mousemove', e => {
         const features = rightMap.queryRenderedFeatures(e.point, { layers: ['oa-england', 'oa-wales', 'oa-scotland', 'oa-northern-ireland'] })
         if (features.length === 0) return
-        console.log(features[0]?.properties)
       })
     }
 
