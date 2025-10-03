@@ -7,11 +7,11 @@
         density="compact"
         hide-details
         item-title="label"
-        item-value="field"
+        return-object
         :items="indicators"
         label="Left Map Indicator"
         width="40%"
-        @update:modelValue="() => changeIndicator('left',leftMap,leftStyle)"
+        @update:model-value="(val) => changeIndicator(val,leftMap,leftStyle)"
       />
       <v-select
         v-model="selectedRightIndicator"
@@ -19,13 +19,14 @@
         density="compact"
         hide-details
         item-title="label"
-        item-value="field"
+        return-object
         :items="indicators"
         label="Right Map Indicator"
         width="40%"
-        @update:modelValue="() => changeIndicator('right',rightMap,rightStyle)"
+        @update:model-value="(val) => changeIndicator(val, rightMap,rightStyle)"
       />
     </div>
+    <v-card class="legend" :title="selectedLeftIndicatorLabel.label" />
     <div ref="mapContainerLeft" class="map-container" :class="{collapsed:_collapsed}" />
     <div ref="mapContainerRight" class="map-container" :class="{collapsed:_collapsed}" />
   </div>
@@ -61,20 +62,22 @@
 
   const choroplethIDs: Set<string> = new Set(['oa-england', 'oa-scotland', 'oa-wales', 'oa-northern-ireland'])
 
-  const defaultLeftIndicator = 'uk_imd2019_SOA_decile'
+  const defaultLeftIndicatorLabel = 'uk_imd2019_SOA_decile'
   const leftStyle = JSON.parse(JSON.stringify(mapStyle))
 
-  const defaultRightIndicator = 'ahah_v4_ah4ahah_pct'
+  const defaultRightIndicatorLabel = 'ahah_v4_ah4ahah_pct'
   const rightStyle = JSON.parse(JSON.stringify(mapStyle))
 
-  const selectedLeftIndicator = ref(defaultLeftIndicator)
-  const selectedRightIndicator = ref(defaultRightIndicator)
+  const selectedLeftIndicatorLabel = ref(defaultLeftIndicatorLabel)
+  const selectedRightIndicatorLabel = ref(defaultRightIndicatorLabel)
 
-  function changeIndicator (side: 'left' | 'right', map: maplibregl.Map | null, style: any) {
-    const _indicator = side === 'left' ? selectedLeftIndicator.value : selectedRightIndicator.value
+  const selectedLeftIndicator = ref(indicators.find(i => i.field === selectedLeftIndicatorLabel.value))
+  const selectedRightIndicator = ref(indicators.find(i => i.field === selectedRightIndicatorLabel.value))
+
+  function changeIndicator (_indicator: any, map: maplibregl.Map | null, style: any) {
     style.layers = style.layers.map(l => {
       if (choroplethIDs.has(l.id)) {
-        l.paint['fill-color'] = indicators.find(i => i.field === _indicator)['fill-color']
+        l.paint['fill-color'] = _indicator['fill-color']
       }
       return l
     })
@@ -82,8 +85,8 @@
     map?.setStyle(style)
   }
 
-  changeIndicator('left', null, leftStyle)
-  changeIndicator('right', null, rightStyle)
+  changeIndicator(selectedLeftIndicator.value, null, leftStyle)
+  changeIndicator(selectedRightIndicator.value, null, rightStyle)
 
   let _compare: Compare
   // Watch for changes in props._type and execute function based on value
@@ -194,6 +197,7 @@
 .indicator-selector {
   width: 100%;
   pointer-events: auto;
+  background-color: #fff8;
 }
 
 </style>
