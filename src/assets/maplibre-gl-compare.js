@@ -75,10 +75,12 @@ function Compare (a, b, container, options) {
   this._clearSync = syncMove(a, b)
   this._onResize = function () {
     this._bounds = a.getContainer().getBoundingClientRect()
+    a.triggerRepaint()
+    b.triggerRepaint()
   }.bind(this)
 
   b.on('resize', this._onResize)
-
+  a.on('resize', this._onResize)
   this.switchType(this?.options?.type || 'slider', a, b)
 }
 
@@ -248,6 +250,8 @@ Compare.prototype = {
   remove () {
     this._clearSync()
     this._mapB.off('resize', this._onResize)
+    this._mapA.off('resize', this._onResize)
+
     let aContainer = this._mapA.getContainer()
 
     if (aContainer) {

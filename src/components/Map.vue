@@ -71,7 +71,6 @@
   const selectedRightIndicator = ref(defaultRightIndicator)
 
   function changeIndicator (side: 'left' | 'right', map: maplibregl.Map | null, style: any) {
-    console.log(side, map, style)
     const _indicator = side === 'left' ? selectedLeftIndicator.value : selectedRightIndicator.value
     style.layers = style.layers.map(l => {
       if (choroplethIDs.has(l.id)) {
@@ -162,6 +161,7 @@
   left: 33.33%;
   transform: translateX(-50%);
   width: auto;
+  min-width: 40%;
   background: transparent;
   z-index: 2;
   display: flex;
