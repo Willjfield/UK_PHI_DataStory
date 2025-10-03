@@ -11,6 +11,7 @@
             "field": "ahah_v4_ah4ahah_pct",
             "label": "Access to Healthy Assets & Hazards (AHAH) Index percentiles",
             "group": "health",
+            "type": "pct",
             "fill-color":  [
                 "interpolate",
                 [
@@ -34,6 +35,7 @@
             "label": "Index of Multiple Deprivation (IMD): 2019 Small Output Area, Decile",
             "description": "Small Output Area (SOA), Grouping the most deprived 10% of SOAs as Decile 1 and the second most deprived 10% as decile 2 etc.",
             "group":"imd",
+            "type": "dec",
             "fill-color": [
                 "step",
                 [
@@ -69,6 +71,7 @@
             "label": "Index of Multiple Deprivation (IMD): 2019 Small Output Area (SOA), Rank",
             "description": "A simple ranking of the Small Output Area (SOA) from most to least deprived.",
             "group":"imd",
+            "type":"rank",
             "fill-color": [
                 "step",
                 [
@@ -104,6 +107,7 @@
             "label": "Index of Multiple Deprivation (IMD): 2019 Small Output Area (SOA), Percentile",
             "description": "Percentage - where the most deprived 1% of SOAs are 1 and the next most deprived 1% are 2 etc.",
             "group":"imd",
+            "type": "pct",
             "fill-color": [
                 "interpolate",
                 [
@@ -127,6 +131,7 @@
             "label": "Index of Multiple Deprivation (IMD): 2019 Large Areas (LA), Rank",
             "description": "A simple ranking of the Large Area (LA) from most to least deprived.",
             "group":"imd",
+            "type":"rank",
             "fill-color": [
                 "step",
                 [
@@ -158,6 +163,7 @@
             "label": "Index of Multiple Deprivation (IMD): 2019 Large Areas (LA), Percentile",
             "description": "Percentage - where the most deprived 1% of LAs are 1 and the next most deprived 1% are 2 etc.",
             "group":"imd",
+            "type": "pct",
             "fill-color": [
                 "interpolate",
                 [
@@ -181,6 +187,7 @@
             "label": "Index of Multiple Deprivation (IMD): 2019 Large Areas (LA), Decile",
             "description": "Grouping the most deprived 10% of LAs as Decile 1 and the second most deprived 10% as decile 2 etc.",
             "group":"imd",
+            "type": "dec",
             "fill-color": [
                 "step",
                 [
@@ -212,6 +219,7 @@
         {
             "field": "ahah_v4_ah4blue_rnk",
             "label": "Bluespace Index Ranked",
+            "type":"rank",
             "group":"environmental",
             "fill-color": [
                 "step",
@@ -247,6 +255,7 @@
             "field": "ahah_v4_ah4blue_pct",
             "label": "Bluespace Index percentiles",
             "group":"environmental",
+            "type": "pct",
             "fill-color": [
                 "interpolate",
                 [
@@ -300,6 +309,7 @@
         {
             "field": "ahah_v4_ah4no2_rnk",
             "label": "Nitrogen Dioxide Index Ranked",
+            "type":"rank",
             "group":"environmental",
             "fill-color": [
                 "step",
@@ -335,6 +345,7 @@
             "field": "ahah_v4_ah4no2_pct",
             "label": "Nitrogen Dioxide Index percentiles",
             "group":"environmental",
+            "type": "pct",
             "fill-color": [
                 "interpolate",
                 [
@@ -388,6 +399,7 @@
         {
             "field": "ahah_v4_ah4so2_rnk",
             "label": "Sulphur Dioxide Index Ranked",
+            "type":"rank",
             "group":"environmental",
             "fill-color": [
                 "step",
@@ -423,6 +435,7 @@
             "field": "ahah_v4_ah4so2_pct",
             "label": "Sulphur Dioxide Index percentiles",
             "group":"environmental",
+            "type": "pct",
             "fill-color": [
                 "interpolate",
                 [
@@ -476,6 +489,7 @@
         {
             "field": "ahah_v4_ah4pm10_rnk",
             "label": "Particulate Matter (PM10) Index Ranked",
+            "type":"rank",
             "group":"environmental",
             "fill-color": [
                 "step",
@@ -511,6 +525,7 @@
             "field": "ahah_v4_ah4pm10_pct",
             "label": "Particulate Matter (PM10) Index percentiles",
             "group":"environmental",
+            "type": "pct",
             "fill-color": [
                 "interpolate",
                 [
@@ -564,6 +579,7 @@
         {
             "field": "ahah_v4_ah4h_rnk",
             "label": "Health Index Ranked",
+            "type":"rank",
             "group":"health",
             "fill-color": [
                 "step",
@@ -599,6 +615,7 @@
             "field": "ahah_v4_ah4h_pct",
             "label": "Health Index percentiles",
             "group":"health",
+            "type": "pct",
             "fill-color": [
                 "interpolate",
                 [
@@ -652,6 +669,7 @@
         {
             "field": "ahah_v4_ah4g_rnk",
             "label": "Green/Bluespace Index Ranked",
+            "type":"rank",
             "group":"environmental",
             "fill-color": [
                 "step",
@@ -687,6 +705,7 @@
             "field": "ahah_v4_ah4g_pct",
             "label": "Green/Bluespace Index percentiles",
             "group":"environmental",
+            "type": "pct",
             "fill-color": [
                 "interpolate",
                 [
@@ -740,6 +759,7 @@
         {
             "field": "ahah_v4_ah4e_rnk",
             "label": "Air Quality Index Ranked",
+            "type":"rank",
             "group":"environmental",
             "fill-color": [
                 "step",
@@ -775,6 +795,7 @@
             "field": "ahah_v4_ah4e_pct",
             "label": "Air Quality Index percentiles",
             "group":"environmental",
+            "type": "pct",
             "fill-color": [
                 "interpolate",
                 [
@@ -828,6 +849,7 @@
         {
             "field": "ahah_v4_ah4ahah_rnk",
             "label": "Access to Healthy Assets and Hazards (AHAH) Index Ranked",
+            "type":"rank",
             "group":"health",
             "fill-color": [
                 "step",
@@ -893,7 +915,8 @@
         },
         {
             "field": "ahah_v4_ah4gpas_rnk",
-            "label": "Green/Bluespace Index Ranked",
+            "label": "Passive Green/Bluespace Index Ranked",
+            "type":"rank",
             "group":"environmental",
             "fill-color": [
                 "step",
@@ -927,8 +950,9 @@
         },
         {
             "field": "ahah_v4_ah4gpas_pct",
-            "label": "Green/Bluespace Index percentiles",
+            "label": "Passive Green/Bluespace Index percentiles",
             "group":"environmental",
+            "type": "pct",
             "fill-color": [
                 "interpolate",
                 [

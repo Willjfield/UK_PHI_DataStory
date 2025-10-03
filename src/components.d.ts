@@ -9,6 +9,9 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./components/AppFooter.vue')['default']
+    LegendDec: typeof import('./components/LegendDec.vue')['default']
+    LegendPct: typeof import('./components/LegendPct.vue')['default']
+    LegendRank: typeof import('./components/LegendRank.vue')['default']
     Map: typeof import('./components/Map.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
