@@ -1,7 +1,7 @@
 <template>
   <div id="comparison-container">
     <div ref="mapContainerLeft" class="map-container" :class="{ collapsed: _collapsed }">
-      <v-card class="ma-4 legend" :style="{ left: '15px', 'max-width': (compareWidth * .75) + 'px' }">
+      <v-card class="ma-4 legend" :style="{ left: '15px', 'max-width': (compareWidth * .75) + 'px', 'min-width': '390px' }">
         <template #title>
           <v-select v-model="selectedLeftIndicator" class="indicator-selector" density="compact" hide-details
             item-title="label" :items="indicators" label="Left Map Indicator" return-object width="100%"
@@ -30,7 +30,7 @@
     </div>
     <div ref="mapContainerRight" class="map-container" :class="{ collapsed: _collapsed }" />
     <v-card class="ma-4 legend legend-right" :class="{ collapsed: _collapsed }" :style="{
-      'max-width': ((_window.innerWidth - compareWidth) * .25) + 'px'
+      'max-width': ((_window.innerWidth - compareWidth) * .25) + 'px', 'min-width': '360px'
     }">
       <template #title>
         <v-select v-model="selectedRightIndicator" class="indicator-selector" density="compact" hide-details
@@ -223,10 +223,15 @@ onUnmounted(() => {
   margin: 8px !important;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  transition: left 0.3s ease-in-out;
+  zoom: .8;
+  transition: zoom 0.3s ease-in-out;
 }
-
+.collapsed .legend, .legend.collapsed{
+  zoom: 1;
+  transition: zoom 0.3s ease-in-out;
+}
 .legend.legend-right.collapsed {
+
   right: 0%;
   transition: right 0.3s ease-in-out;
 }
