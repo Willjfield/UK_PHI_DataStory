@@ -21,7 +21,7 @@
       v-show="typeof c === 'number' && c <= 5"
       :key="c"
       class="step-value"
-    >- {{ c }} Decile</div>
+    >- {{ c }} Decile <span v-show="c===1">(Most Deprived)</span></div>
   </div>
   <div
     v-if="indicator.label && indicator['fill-color'][0] === 'step'"
@@ -46,7 +46,7 @@
       :key="c"
       class="step-value"
     >- {{ c }} Decile</div>
-    <div class="step-value">- 10 Decile</div>
+    <div class="step-value">- 10 Decile (Least Deprived)</div>
   </div>
 </template>
 <script lang="ts" setup>
