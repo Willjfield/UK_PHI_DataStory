@@ -1,40 +1,100 @@
 <template>
   <div id="comparison-container">
-    <div ref="mapContainerLeft" class="map-container" :class="{ collapsed: _collapsed }" />
+    <div ref="mapContainerLeft" class="map-container" :class="{ collapsed: _collapsed }">
+      <v-card class="ma-4 legend" :style="{ left: '15px', 'max-width': (compareWidth * .75) + 'px', 'min-width': '390px' }">
+        <template #title>
+          <v-select
+            v-model="selectedLeftIndicator"
+            class="indicator-selector"
+            density="compact"
+            hide-details
+            item-title="label"
+            :items="indicators"
+            label="Left Map Indicator"
+            return-object
+            width="100%"
+            @update:model-value="(val) => changeIndicator(val, leftMap, leftStyle, 'left')"
+          />
+        </template>
+        <template #text>
+          <div class="actual-legend-bit">
+            <div v-if="selectedLeftIndicator.type === 'rank'">
+              <LegendRank :indicator="selectedLeftIndicator" />
+            </div>
+            <div v-else-if="selectedLeftIndicator.type === 'pct'">
+              <LegendPct :indicator="selectedLeftIndicator" />
+            </div>
+            <div v-else-if="selectedLeftIndicator.type === 'dec'">
+              <LegendDec :indicator="selectedLeftIndicator" />
+            </div>
+            <div v-else>
+              <LegendRank :indicator="selectedLeftIndicator" />
+            </div>
+          </div>
+          <v-expansion-panels v-show="selectedLeftIndicator?.description" static>
+            <v-expansion-panel class="more-info-expand" :text="selectedLeftIndicator?.description" title="Details" />
+          </v-expansion-panels>
+        </template>
+      </v-card>
+    </div>
     <div ref="mapContainerRight" class="map-container" :class="{ collapsed: _collapsed }" />
-    <LegendPanel
-      :collapsed="_collapsed"
-      :compare-width="compareWidth"
-      :indicators="indicators"
-      :selected-indicator="selectedLeftIndicator"
-      :side="'left'"
-      title="Left Map Indicator"
-      :window-width="_window.innerWidth"
-      @change="(val) => { selectedLeftIndicator.value = val; changeIndicator(val, leftMap, leftStyle) }"
-    />
-    <LegendPanel
-      :collapsed="_collapsed"
-      :compare-width="compareWidth"
-      :indicators="indicators"
-      :selected-indicator="selectedRightIndicator"
-      :side="'right'"
-      title="Right Map Indicator"
-      :window-width="_window.innerWidth"
-      @change="(val) => { selectedRightIndicator.value = val; changeIndicator(val, rightMap, rightStyle) }"
-    />
+    <v-card
+      class="ma-4 legend legend-right"
+      :class="{ collapsed: _collapsed }"
+      :style="{
+        'max-width': ((_window.innerWidth - compareWidth) * .25) + 'px', 'min-width': '360px'
+      }"
+    >
+      <template #title>
+        <v-select
+          v-model="selectedRightIndicator"
+          class="indicator-selector"
+          density="compact"
+          hide-details
+          item-title="label"
+          :items="indicators"
+          label="Right Map Indicator"
+          return-object
+          width="100%"
+          @update:model-value="(val) => changeIndicator(val, rightMap, rightStyle, 'right')"
+        />
+      </template>
+      <template #text>
+        <div class="actual-legend-bit">
+          <div v-if="selectedRightIndicator.type === 'rank'">
+            <LegendRank :indicator="selectedRightIndicator" />
+          </div>
+          <div v-else-if="selectedRightIndicator.type === 'pct'">
+            <LegendPct :indicator="selectedRightIndicator" />
+          </div>
+          <div v-else-if="selectedRightIndicator.type === 'dec'">
+            <LegendDec :indicator="selectedRightIndicator" />
+          </div>
+          <div v-else>
+            <LegendRank :indicator="selectedRightIndicator" />
+          </div>
+        </div>
+        <v-expansion-panels v-show="selectedRightIndicator?.description" static>
+          <v-expansion-panel class="more-info-expand" :text="selectedRightIndicator?.description" title="Details" />
+        </v-expansion-panels>
+      </template>
+    </v-card>
   </div>
 </template>
 
 <script lang="ts" setup>
   import maplibregl from 'maplibre-gl'
   import { Protocol } from 'pmtiles'
-  import { onMounted, onUnmounted, ref, watch } from 'vue'
+  import { onMounted, onUnmounted, ref, watch, inject } from 'vue'
   import * as mapStyle from '@/assets/basic.json'
   import { indicators } from '@/assets/indicators.json'
   import Compare from '@/assets/maplibre-gl-compare.js'
-  import { useAppStore } from '@/stores/app'
-  import LegendPanel from './LegendPanel.vue'
+  import LegendDec from './LegendDec.vue'
+  import LegendPct from './LegendPct.vue'
   import '@/assets/maplibre-gl-compare.css'
+
+  const mitt = inject('mitt')
+
   const mapContainerLeft = ref<HTMLElement>()
   let leftMap: maplibregl.Map | null = null
 
@@ -69,7 +129,7 @@
   const selectedRightIndicator = ref(indicators.find(i => i.field === selectedRightIndicatorField.value))
 
   const _window = ref(window)
-  function changeIndicator (_indicator: any, map: maplibregl.Map | null, style: any) {
+  function changeIndicator (_indicator: any, map: maplibregl.Map | null, style: any, side: string) {
     const isAHAHIndicator = _indicator.field.includes('ahah')
     style.layers = style.layers.map((l: { id: string, paint: { [x: string]: any }, layout: any }) => {
       if (choroplethIDs.has(l.id)) {
@@ -77,18 +137,18 @@
         l.layout = {}
       }
       if (l.id.includes('2021_ahah')) {
-        l.paint['fill-opacity'] = isAHAHIndicator ? 1 : 0
+        l.layout.visibility = isAHAHIndicator ? 'visible' : 'none'
       } else if (l.id.includes('oa-england') || l.id.includes('oa-wales')) {
-        l.paint['fill-opacity'] = isAHAHIndicator ? 0 : 1
+        l.layout.visibility = isAHAHIndicator ? 'none' : 'visible'
       }
       return l
     })
-
+    mitt.emit(`${side}-indicator-update`, _indicator)
     map?.setStyle(style)
   }
 
-  changeIndicator(selectedLeftIndicator.value, null, leftStyle)
-  changeIndicator(selectedRightIndicator.value, null, rightStyle)
+  changeIndicator(selectedLeftIndicator.value, null, leftStyle, 'left')
+  changeIndicator(selectedRightIndicator.value, null, rightStyle, 'right')
 
   let _compare: Compare
 
@@ -100,7 +160,6 @@
   })
 
   onMounted(() => {
-    const appStore = useAppStore()
     // Ensure the container is properly initialized
     if (mapContainerLeft.value) {
       leftMap = new maplibregl.Map({
@@ -113,10 +172,9 @@
       leftMap.on('mousemove', e => {
         const features = leftMap.queryRenderedFeatures(e.point, { layers: choroplethIDs })
         if (features.length === 0) return
+        // console.log('LEFT MAP')
         const props = features?.map(f => f.properties)
-        const sendProps = { side: 'left', props }
-        appStore.setEitherHover(sendProps)
-        //appStore.setLeftHover(sendProps)
+        mitt.emit('left-update', props)
       })
     }
 
@@ -132,10 +190,7 @@
         const features = rightMap.queryRenderedFeatures(e.point, { layers: choroplethIDs })
         if (features.length === 0) return
         const props = features?.map(f => f.properties)
-        console.log(props)
-        const sendProps = { side: 'right', props }
-        appStore.setEitherHover(sendProps)
-        //appStore.setRightHover(sendProps)
+        mitt.emit('right-update', props)
       })
     }
 

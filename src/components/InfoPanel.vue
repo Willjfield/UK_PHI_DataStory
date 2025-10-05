@@ -1,54 +1,98 @@
 <template>
-   <v-card class="info-panel" :class="{'collapsed':sidebarCollapsed}" title="Info panel">
-      <v-table density="compact">
-        <tbody>
-          <tr>
-            <td colspan="2">
-              <pre v-if="eitherHover" class="mini-pre">{{ summarize(eitherHover.props) }}</pre>
-              <span v-else>—</span>
-            </td>
-          </tr>
-        </tbody>
-      </v-table>
+  <!-- <v-card class="info-panel" max-height="20%" width="40%">
+    <template #text> -->
+  <div class="info-panel">
+    <v-card
+      v-if="leftProps"
+      class="left half"
+      width="50%"
+      :subtitle="(leftProps.LSOA21NM || leftProps.uk_imd2019_LANAME)+':'+(leftProps.LSOA21CD || leftProps.LSOA11_CD || leftProps.SOA2011)"
+      :title="leftProps ? (leftProps.LSOA21CD ? '2021 Output Area' : '2011 Output Area') : ''"
+    >
+    <template #text>
+      <v-divider></v-divider>
+      <div class="half">{{ leftIndicator.label }}: <b>{{leftProps[leftIndicator.field]}}</b></div>
+    </template>
     </v-card>
- </template>
+    <v-card
+      v-if="rightProps"
+      class="right half"
+      width="50%"
+      :subtitle="(rightProps.LSOA21NM || rightProps.uk_imd2019_LANAME)+':'+(rightProps.LSOA21CD || rightProps.LSOA11_CD || rightProps.SOA2011)"
+      :title="rightProps ? (rightProps.LSOA21CD ? '2021 Output Area' : '2011 Output Area') : ''"
+    >
+    <template #text>
+      <v-divider></v-divider>
+      <div class="half">{{ leftIndicator.label }}: <b>{{leftProps[leftIndicator.field]}}</b></div>
+    </template>
+    </v-card>
+  </div>
+  <!-- </template>
+  </v-card> -->
+</template>
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
-import { useAppStore } from '@/stores/app'
+  import type { EventEmitter } from 'mitt'
+  import { inject } from 'vue'
 
-const props = defineProps<{ sidebarCollapsed?: boolean }>()
+  const mitt: EventEmitter = inject('mitt')
+  const leftProps = ref()
+  const rightProps = ref()
 
-const appStore = useAppStore()
-const { leftHover, rightHover, eitherHover } = storeToRefs(appStore)
+  const leftIndicator = ref()
+  const rightIndicator = ref()
 
-function summarize(propsArr: any[]) {
-  try {
-    return JSON.stringify(propsArr, null, 2)
-  } catch (e) {
-    return ''
-  }
-}
+  mitt.on('left-indicator-update', (val)=>{
+    leftIndicator.value = val
+  })
+
+  mitt.on('right-indicator-update', (val)=>{
+    rightIndicator.value = val
+  })
+
+  mitt.on('left-update', props => {
+    console.log(props)
+    leftProps.value = props.length === 1 ? { ...props[0] } : { ...props[0], ...props[1] }
+  })
+
+  mitt.on('right-update', props => {
+    console.log(props)
+    rightProps.value = props.length === 1 ? { ...props[0] } : { ...props[0], ...props[1] }
+  })
+
 </script>
 <style>
 .info-panel{
   position: absolute !important;
-  left: 33.4%;
-    transform: translateX(-50%);
-    z-index: 3 !important;
-    transition: left 0.3s ease-in-out;
-    max-width: min-content;
-    overflow: scroll;
+  z-index: 3;
+  height: 7em !important;
+  width: 450px;
+  left: 33.3%;
+  transform:translateX(-50%);
+  transition: left 0.3s ease-in-out;
 }
-
-.info-panel.collapsed{
+.collapsed .info-panel{
   left: 50%;
   transition: left 0.3s ease-in-out;
 }
 
-.mini-pre{
-  margin: 0;
-  max-width: 420px;
-  white-space: pre-wrap;
-  font-size: 11px;
+.half{
+  display: inline-block;
+  height: 100%;
+}
+.half .v-card-title{
+  font-size: .9em !important;
+}
+
+.half .v-card-item{
+  padding-bottom: 0;
+}
+
+.half .v-card-text{
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.right{
+  float:right;
 }
 </style>

@@ -13,7 +13,9 @@
         <v-icon>mdi-map</v-icon>|<v-icon>mdi-map</v-icon>
       </template>
     </v-switch>
-    <InfoPanel :sidebarCollapsed="sidebarCollapsed"/>
+    <div :class="{collapsed:sidebarCollapsed}">
+    <InfoPanel/>
+  </div>
     <v-row class="my-0" max-height="100dvh">
       <v-col class="pa-0 transition-all duration-500" :cols="sidebarCollapsed ? 12 : 8">
         <Map
@@ -141,7 +143,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   import Map from '@/components/map.vue'
-
+  import InfoPanel from '@/components/InfoPanel.vue'
   const sidebarCollapsed = ref(false)
   const compareType = ref('slider')
   const scrollableContainer = ref(null)
