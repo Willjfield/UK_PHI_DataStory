@@ -19,7 +19,7 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
-    '/story': RouteRecordInfo<'/story', '/story', Record<never, never>, Record<never, never>>,
+    '/_index': RouteRecordInfo<'/_index', '/_index', Record<never, never>, Record<never, never>>,
   }
 
   /**
@@ -37,8 +37,8 @@ declare module 'vue-router/auto-routes' {
       routes: '/'
       views: never
     }
-    'src/pages/story.vue': {
-      routes: '/story'
+    'src/pages/_index.vue': {
+      routes: '/_index'
       views: never
     }
   }

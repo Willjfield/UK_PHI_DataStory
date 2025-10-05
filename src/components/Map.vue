@@ -167,6 +167,7 @@
         style: leftStyle,
         center: props._center,
         zoom: props._zoom,
+        hash: true
       })
 
       leftMap.on('mousemove', e => {
@@ -198,6 +199,14 @@
 
     _compare.on('slideend', (e: { currentPosition: number }) => {
       compareWidth.value = e.currentPosition
+    })
+
+    mitt.on('go-to', (target)=>{
+      leftMap?.flyTo({ center: target.center, zoom: target.zoom })
+      const newLeft = indicators.find(i => i.field === target.leftIndicator)
+      const newRight = indicators.find(i => i.field === target.rightIndicator)
+      changeIndicator(newLeft, null, leftStyle, 'left')
+      changeIndicator(newRight, null, rightStyle, 'right')
     })
   })
 

@@ -23,7 +23,7 @@
     >
     <template #text>
       <v-divider></v-divider>
-      <div class="half">{{ leftIndicator.label }}: <b>{{leftProps[leftIndicator.field]}}</b></div>
+      <div class="half">{{ rightIndicator.label }}: <b>{{rightProps[rightIndicator.field]}}</b></div>
     </template>
     </v-card>
   </div>
@@ -76,7 +76,7 @@
 }
 
 .half{
-  display: inline-block;
+  display: inline-block !important;
   height: 100%;
 }
 .half .v-card-title{
