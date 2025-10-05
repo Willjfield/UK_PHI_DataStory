@@ -48,7 +48,8 @@
             <v-card class="mx-8" title="Multiple Disadvantage vs. Access to Healthy Assets and Hazards" variant="text">
               <template #text>
                 This map compares <a href="https://data.geods.ac.uk/dataset/index-of-multiple-deprivation-imd">indices
-                  of multiple disadvantage (IMD)</a> data from 2019 collected and published by The Geographic Data Service along
+                  of multiple disadvantage (IMD)</a> data from 2019 collected and published by The Geographic Data
+                Service along
                 with indicators of <a
                   href="https://data.geods.ac.uk/dataset/access-to-healthy-assets-hazards-ahah"
                 >Access to Healthy Assets
@@ -56,46 +57,52 @@
                 You can get
               </template>
             </v-card>
-            <v-card variant="text" class="pa-8">
-            <v-expansion-panels>
-              <v-expansion-panel style="line-height: 1.1em;" title="What is Multiple Disadvantage?">
-                <template #text>
-                  <h4>From <a href="https://meam.org.uk/multiple-needs-and-exclusions/">Making Every Adult Matter</a>:</h4>
-                  <br></br>
-                  People facing multiple disadvantage experience a combination of problems. For many, their current
-                  circumstances are shaped by long-term experiences of poverty, deprivation, trauma, abuse and
-                  neglect.
-                  Many
-                  also face racism, sexism and homophobia. These structural inequalities intersect in different ways,
-                  manifesting in a combination of experiences including homelessness, substance misuse, domestic
-                  violence,
-                  contact with the criminal justice system and mental ill health.
-                  Multiple disadvantage is a systemic, not an individual issue. People facing multiple disadvantage
-                  live
-                  in
-                  every area of the country. They are often failed by services and systems that focus on singular
-                  issues.
-                  This
-                  makes it harder for individuals to address their problems, lead fulfilling lives and contribute
-                  fully to
-                  their communities.
-                  The Index of Multiple Deprivation (IMD) datasets are small area measures of relative deprivation
-                  across each of the constituent nations of the United Kingdom. Areas are ranked from the most
-                  deprived area (rank 1) to the least deprived area. Each nation publishes its data on its own data
-                  portal. Each nation measures deprivation in a slightly different way but the broad themes include
-                  income, employment, education, health, crime, barriers to housing and services, and the living
-                  environment.
-                </template>
-            </v-expansion-panel>
-            <v-expansion-panel style="line-height: 1.1em;" title="What are the geographies used?">
-                <template #text>
-                  <h4>From the <a href="https://www.ons.gov.uk/methodology/geography/ukgeographies/statisticalgeographies">Office for National Statistics</a>:</h4>
-                  <br></br>
-                  The geographies used on the map are Lower layer Super Output Areas (LSOAs) for England and Wales, Data Zones for Scotland and Super Output Areas or Wards (when data is available) for Northern Ireland.
-                </template>
-            </v-expansion-panel>
-          </v-expansion-panels>
-        </v-card>
+            <v-card class="pa-8" variant="text">
+              <v-expansion-panels>
+                <v-expansion-panel style="line-height: 1.1em;" title="What is Multiple Disadvantage?">
+                  <template #text>
+                    <h4>From <a href="https://meam.org.uk/multiple-needs-and-exclusions/">Making Every Adult Matter</a>:
+                    </h4>
+                    <br></br>
+                    People facing multiple disadvantage experience a combination of problems. For many, their current
+                    circumstances are shaped by long-term experiences of poverty, deprivation, trauma, abuse and
+                    neglect.
+                    Many
+                    also face racism, sexism and homophobia. These structural inequalities intersect in different ways,
+                    manifesting in a combination of experiences including homelessness, substance misuse, domestic
+                    violence,
+                    contact with the criminal justice system and mental ill health.
+                    Multiple disadvantage is a systemic, not an individual issue. People facing multiple disadvantage
+                    live
+                    in
+                    every area of the country. They are often failed by services and systems that focus on singular
+                    issues.
+                    This
+                    makes it harder for individuals to address their problems, lead fulfilling lives and contribute
+                    fully to
+                    their communities.
+                    The Index of Multiple Deprivation (IMD) datasets are small area measures of relative deprivation
+                    across each of the constituent nations of the United Kingdom. Areas are ranked from the most
+                    deprived area (rank 1) to the least deprived area. Each nation publishes its data on its own data
+                    portal. Each nation measures deprivation in a slightly different way but the broad themes include
+                    income, employment, education, health, crime, barriers to housing and services, and the living
+                    environment.
+                  </template>
+                </v-expansion-panel>
+                <v-expansion-panel style="line-height: 1.1em;" title="What are the geographies used?">
+                  <template #text>
+                    <h4>From the <a
+                      href="https://www.ons.gov.uk/methodology/geography/ukgeographies/statisticalgeographies"
+                    >Office
+                      for National Statistics</a>:</h4>
+                    <br></br>
+                    The geographies used on the map are Lower layer Super Output Areas (LSOAs) for England and Wales,
+                    Data Zones for Scotland and Super Output Areas or Wards (when data is available) for Northern
+                    Ireland.
+                  </template>
+                </v-expansion-panel>
+              </v-expansion-panels>
+            </v-card>
             <v-divider />
             <v-card class="ma-8" subtitle="AHAH vs. IMD" title="Glasgow, Scotland" variant="text">
               <template #text>
@@ -136,11 +143,12 @@
 
   const sidebarCollapsed = ref(false)
   const compareType = ref('slider')
-  const scrollableContainer = ref()
-  const showScrollPrompt = ref(true)
+  const scrollableContainer = ref(null)
+  //const showScrollPrompt = ref(true)
   onMounted(() => {
     scrollableContainer.value.addEventListener('scroll', e => {
-    // const scrollTop = e.target.scrollTop;
+      const scrollTop = e.target.scrollTop
+      console.log(scrollTop)
     // if (scrollTop > 10) {
     //   showScrollPrompt.value = false
     // }

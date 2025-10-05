@@ -12,6 +12,7 @@
             "label": "Access to Healthy Assets & Hazards (AHAH) Index percentiles",
             "group": "health",
             "type": "pct",
+            "description":"UK wide percentile of each area ranked by AHAH index. AHAH is a multi-dimensional index developed by the GeoDS for Great Britain measuring how 'healthy' neighbourhoods are. The AHAH index combines indicators under four different domains of accessibility: Retail environment, Health services, Physical environment, and Air quality.",
             "fill-color":  [
                 "interpolate",
                 [
@@ -151,6 +152,7 @@
         {
             "field": "ahah_v4_ah4blue_rnk",
             "label": "Bluespace Index Ranked",
+            "description":"UK wide ranking of output areas by access to blue space.",
             "type":"rank",
             "group":"environmental",
             "fill-color": [
@@ -188,6 +190,7 @@
             "label": "Bluespace Index percentiles",
             "group":"environmental",
             "type": "pct",
+            "description":"UK wide percentile of each area ranked by access to blue space.",
             "fill-color": [
                 "interpolate",
                 [
@@ -243,6 +246,7 @@
             "label": "Nitrogen Dioxide Index Ranked",
             "type":"rank",
             "group":"environmental",
+            "description":"UK wide ranking of output areas by level of Nitrogen Dioxide measured in the air.",
             "fill-color": [
                 "step",
                 [
@@ -278,6 +282,7 @@
             "label": "Nitrogen Dioxide Index percentiles",
             "group":"environmental",
             "type": "pct",
+            "description":"UK wide percentile of output areas by level of Nitrogen Dioxide measured in the air.",
             "fill-color": [
                 "interpolate",
                 [
@@ -299,6 +304,7 @@
         {
             "field": "ahah_v4_ah4so2",
             "label": "Annual mean Sulphur Dioxide (ugm3)",
+            "description":"Annual mean level of Sulfur Dioxide measured in the air during the year.",
             "group":"environmental",
             "fill-color": [
                 "step",
@@ -333,6 +339,7 @@
             "label": "Sulphur Dioxide Index Ranked",
             "type":"rank",
             "group":"environmental",
+            "description":"UK wide ranking of output areas by Sulphur Dioxide level.",
             "fill-color": [
                 "step",
                 [
@@ -423,6 +430,7 @@
             "label": "Particulate Matter (PM10) Index Ranked",
             "type":"rank",
             "group":"environmental",
+            "description":"UK wide ranking of output areas by Particulate Matter (PM10) level.",
             "fill-color": [
                 "step",
                 [
@@ -516,6 +524,7 @@
             "label": "Health Index Ranked",
             "type":"rank",
             "group":"health",
+            "description":"UK wide ranking of output areas by access to health services like hospitals.",
             "fill-color": [
                 "step",
                 [
@@ -609,6 +618,7 @@
             "label": "Green/Bluespace Index Ranked",
             "type":"rank",
             "group":"environmental",
+            "description":"UK wide ranking of output areas by access to Green/Blue space (natural areas like woods, lakes, beaches etc).",
             "fill-color": [
                 "step",
                 [
@@ -702,6 +712,7 @@
             "label": "Air Quality Index Ranked",
             "type":"rank",
             "group":"environmental",
+            "description":"UK wide ranking of output areas by AQI (Air Quality Index).",
             "fill-color": [
                 "step",
                 [
@@ -790,6 +801,7 @@
         {
             "field": "ahah_v4_ah4ahah_rnk",
             "label": "Access to Healthy Assets and Hazards (AHAH) Index Ranked",
+            "description":"UK wide ranking of output areas by overall AHAH index.",
             "type":"rank",
             "group":"health",
             "fill-color": [
