@@ -85,7 +85,7 @@
 <script lang="ts" setup>
   import maplibregl from 'maplibre-gl'
   import { Protocol } from 'pmtiles'
-  import { onMounted, onUnmounted, ref, watch, inject } from 'vue'
+  import { inject, onMounted, onUnmounted, ref, watch } from 'vue'
   import * as mapStyle from '@/assets/basic.json'
   import { indicators } from '@/assets/indicators.json'
   import Compare from '@/assets/maplibre-gl-compare.js'
@@ -150,6 +150,20 @@
   changeIndicator(selectedLeftIndicator.value, null, leftStyle, 'left')
   changeIndicator(selectedRightIndicator.value, null, rightStyle, 'right')
 
+  mitt.on('go-to', target => {
+    leftMap?.flyTo({ center: target.location.center, zoom: target.location.zoom })
+    const newLeft = indicators.find(i => i.field === target.leftIndicator)
+    const newRight = indicators.find(i => i.field === target.rightIndicator)
+    //console.log(newLeft.field, newRight.field)
+
+    //leftMap?.once('idle',()=>{
+      selectedLeftIndicator.value = newLeft
+      selectedRightIndicator.value = newRight
+      changeIndicator(newLeft, leftMap, leftStyle, 'left')
+      changeIndicator(newRight, rightMap, rightStyle, 'right')
+    //})
+  })
+
   let _compare: Compare
 
   let compareWidth = ref(0)
@@ -167,7 +181,7 @@
         style: leftStyle,
         center: props._center,
         zoom: props._zoom,
-        hash: true
+        hash: true,
       })
 
       leftMap.on('mousemove', e => {
@@ -199,14 +213,6 @@
 
     _compare.on('slideend', (e: { currentPosition: number }) => {
       compareWidth.value = e.currentPosition
-    })
-
-    mitt.on('go-to', (target)=>{
-      leftMap?.flyTo({ center: target.center, zoom: target.zoom })
-      const newLeft = indicators.find(i => i.field === target.leftIndicator)
-      const newRight = indicators.find(i => i.field === target.rightIndicator)
-      changeIndicator(newLeft, null, leftStyle, 'left')
-      changeIndicator(newRight, null, rightStyle, 'right')
     })
   })
 

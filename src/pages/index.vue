@@ -158,8 +158,8 @@
       zoom: 10.44,
       center: [-4.2607, 55.8537],
     },
-    leftIndicator:'',
-    rightIndicator:''
+    leftIndicator:'ahah_v4_ah4ahah_pct',
+    rightIndicator:'ahah_v4_ah4blue_pct'
   }]
 
   onMounted(() => {
