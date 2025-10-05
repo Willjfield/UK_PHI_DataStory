@@ -212,6 +212,7 @@
         {
             "field": "ahah_v4_ah4no2",
             "label": "Annual mean Nitrogen Dioxide (ugm3)",
+            "description":"Annual mean concentration of Nitrogen Dioxide (NO2) measured in micrograms per cubic metre (µg/m³).",
             "group":"environmental",
             "fill-color": [
                 "step",
@@ -375,6 +376,7 @@
             "label": "Sulphur Dioxide Index percentiles",
             "group":"environmental",
             "type": "pct",
+            "description":"UK wide percentile of areas by level of Sulphur Dioxide measured in the air.",
             "fill-color": [
                 "interpolate",
                 [
@@ -396,6 +398,7 @@
         {
             "field": "ahah_v4_ah4pm10",
             "label": "Annual mean Particulate Matter (PM10)",
+            "description":"Annual mean concentration of particulate matter (PM10) measured in micrograms per cubic metre (µg/m³).",
             "group":"environmental",
             "fill-color": [
                 "step",
@@ -466,6 +469,7 @@
             "label": "Particulate Matter (PM10) Index percentiles",
             "group":"environmental",
             "type": "pct",
+            "description":"UK wide percentile of areas by particulate matter (PM10) level.",
             "fill-color": [
                 "interpolate",
                 [
@@ -489,6 +493,7 @@
             "label": "Health Domain Score",
             "group":"health",
             "type":"score",
+            "description":"Composite Health domain score within the AHAH index on a 0–1 scale (higher indicates better access to healthy assets and fewer hazards).",
             "fill-color": [
                 "step",
                 [
@@ -560,6 +565,7 @@
             "label": "Health Index percentiles",
             "group":"health",
             "type": "pct",
+            "description":"UK wide percentile of areas by Health domain score (AHAH).",
             "fill-color": [
                 "interpolate",
                 [
@@ -583,6 +589,7 @@
             "label": "Green/Bluespace Domain Score",
             "group":"environmental",
             "type":"score",
+            "description":"Composite Green/Bluespace domain score within the AHAH index on a 0–1 scale (higher indicates better access to natural spaces).",
             "fill-color": [
                 "step",
                 [
@@ -654,6 +661,7 @@
             "label": "Green/Bluespace Index percentiles",
             "group":"environmental",
             "type": "pct",
+            "description":"UK wide percentile of areas by Green/Bluespace domain score (AHAH).",
             "fill-color": [
                 "interpolate",
                 [
@@ -677,6 +685,7 @@
             "label": "Air Quality Domain Score",
             "group":"environmental",
             "type":"score",
+            "description":"Composite Air Quality domain score within the AHAH index on a 0–1 scale (higher indicates better air quality).",
             "fill-color": [
                 "step",
                 [
@@ -748,6 +757,7 @@
             "label": "Air Quality Index percentiles",
             "group":"environmental",
             "type": "pct",
+            "description":"UK wide percentile of areas by Air Quality domain score (AHAH).",
             "fill-color": [
                 "interpolate",
                 [
@@ -770,6 +780,7 @@
             "field": "ahah_v4_ah4ahah",
             "label": "Access to Healthy Assets and Hazards (AHAH) Index Percentiles",
             "group": "health",
+            "description":"AHAH index grouped into bands representing relative standing of areas across Great Britain (higher indicates a healthier environment).",
             "fill-color": [
                 "step",
                 [
@@ -837,6 +848,7 @@
         {
             "field": "ahah_v4_ah4gpas",
             "label": "NDVI value indicating Passive Green Space",
+            "description":"NDVI-derived value indicating passive green space presence and intensity on a 0–1 scale.",
             "group":"environmental",
             "fill-color": [
                 "step",
@@ -871,6 +883,7 @@
             "label": "Passive Green/Bluespace Index Ranked",
             "type":"rank",
             "group":"environmental",
+            "description":"UK wide ranking of areas by passive green/blue space index (NDVI-based).",
             "fill-color": [
                 "step",
                 [
@@ -906,6 +919,7 @@
             "label": "Passive Green/Bluespace Index percentiles",
             "group":"environmental",
             "type": "pct",
+            "description":"UK wide percentile of areas by passive green/blue space index (NDVI-based).",
             "fill-color": [
                 "interpolate",
                 [

@@ -13,6 +13,7 @@
         <v-icon>mdi-map</v-icon>|<v-icon>mdi-map</v-icon>
       </template>
     </v-switch>
+    <InfoPanel :sidebarCollapsed="sidebarCollapsed"/>
     <v-row class="my-0" max-height="100dvh">
       <v-col class="pa-0 transition-all duration-500" :cols="sidebarCollapsed ? 12 : 8">
         <Map
@@ -54,7 +55,7 @@
                   href="https://data.geods.ac.uk/dataset/access-to-healthy-assets-hazards-ahah"
                 >Access to Healthy Assets
                   and Hazards (AHAH)</a>
-                You can get
+                You can scroll down in this panel for a curated story of places of interest or explore the data on the map freely.
               </template>
             </v-card>
             <v-card class="pa-8" variant="text">
@@ -144,7 +145,7 @@
   const sidebarCollapsed = ref(false)
   const compareType = ref('slider')
   const scrollableContainer = ref(null)
-  //const showScrollPrompt = ref(true)
+  // const showScrollPrompt = ref(true)
   onMounted(() => {
     scrollableContainer.value.addEventListener('scroll', e => {
       const scrollTop = e.target.scrollTop
