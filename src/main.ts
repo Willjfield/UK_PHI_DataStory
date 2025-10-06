@@ -4,23 +4,23 @@
  * Bootstraps Vuetify and other plugins then mounts the App`
  */
 
+// Composables
+import { createApp } from 'vue'
+
 // Plugins
 import { registerPlugins } from '@/plugins'
 
 // Components
 import App from './App.vue'
 
-// Composables
-import { createApp } from 'vue'
+import mitt from 'mitt'
 
 // Styles
 import 'unfonts.css'
 
-import EventEmitter from 'mitt'
-
 const app = createApp(App)
 
-app.provide('mitt', new EventEmitter())
+app.provide('mitt', mitt())
 registerPlugins(app)
 
 app.mount('#app')

@@ -150,12 +150,12 @@
 <script lang="ts" setup>
 import { inject, ref } from 'vue'
 import InfoPanel from '@/components/InfoPanel.vue'
-import Map from '@/components/map.vue'
+import Map from '@/components/Map.vue'
 const sidebarCollapsed = ref(false)
 const compareType = ref('slider')
-const scrollableContainer = ref(null)
+const scrollableContainer = ref<HTMLElement | null>(null)
 
-const mitt = inject('mitt')
+const mitt = inject('mitt') as any
 
 const stops = [{
   trigger: 300,
@@ -197,7 +197,7 @@ const stops = [{
 
 onMounted(() => {
   let isAnimating = false;
-  scrollableContainer.value.addEventListener('scroll', e => {
+  scrollableContainer.value?.addEventListener('scroll', (e: any) => {
     const scrollTop = e.target.scrollTop
     for (const _stop of stops) {
       if (scrollTop > _stop.trigger && !_stop.hasPlayed && !isAnimating) {

@@ -3,9 +3,9 @@
     <v-card
       v-if="leftProps"
       class="left half"
-      width="50%"
       :subtitle="(leftProps.LSOA21NM || leftProps.uk_imd2019_LANAME)+':'+(leftProps.LSOA21CD || leftProps.LSOA11_CD || leftProps.SOA2011)"
       :title="leftProps ? (leftProps.LSOA21CD ? '2021 Output Area' : '2011 Output Area') : ''"
+      width="50%"
     >
     <template #text>
       <v-divider></v-divider>
@@ -15,9 +15,9 @@
     <v-card
       v-if="rightProps"
       class="right half"
-      width="50%"
       :subtitle="(rightProps.LSOA21NM || rightProps.uk_imd2019_LANAME)+':'+(rightProps.LSOA21CD || rightProps.LSOA11_CD || rightProps.SOA2011)"
       :title="rightProps ? (rightProps.LSOA21CD ? '2021 Output Area' : '2011 Output Area') : ''"
+      width="50%"
     >
     <template #text>
       <v-divider></v-divider>
@@ -27,29 +27,28 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import type { EventEmitter } from 'mitt'
-  import { inject } from 'vue'
+  import { inject, ref } from 'vue'
 
-  const mitt: EventEmitter = inject('mitt')
+  const mitt: any = inject('mitt')
   const leftProps = ref()
   const rightProps = ref()
 
   const leftIndicator = ref()
   const rightIndicator = ref()
 
-  mitt.on('left-indicator-update', (val)=>{
+  mitt.on('left-indicator-update', (val: any) => {
     leftIndicator.value = val
   })
 
-  mitt.on('right-indicator-update', (val)=>{
+  mitt.on('right-indicator-update', (val: any) => {
     rightIndicator.value = val
   })
 
-  mitt.on('left-update', props => {
+  mitt.on('left-update', (props: any) => {
     leftProps.value = props.length === 1 ? { ...props[0] } : { ...props[0], ...props[1] }
   })
 
-  mitt.on('right-update', props => {
+  mitt.on('right-update', (props: any) => {
     rightProps.value = props.length === 1 ? { ...props[0] } : { ...props[0], ...props[1] }
   })
 

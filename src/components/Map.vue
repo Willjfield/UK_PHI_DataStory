@@ -18,16 +18,16 @@
         </template>
         <template #text>
           <div class="actual-legend-bit">
-            <div v-if="selectedLeftIndicator.type === 'rank'">
+            <div v-if="selectedLeftIndicator?.type === 'rank'">
               <LegendRank :indicator="selectedLeftIndicator" />
             </div>
-            <div v-else-if="selectedLeftIndicator.type === 'pct'">
+            <div v-else-if="selectedLeftIndicator?.type === 'pct'">
               <LegendPct :indicator="selectedLeftIndicator" />
             </div>
-            <div v-else-if="selectedLeftIndicator.type === 'dec'">
+            <div v-else-if="selectedLeftIndicator?.type === 'dec'">
               <LegendDec :indicator="selectedLeftIndicator" />
             </div>
-            <div v-else>
+            <div v-else-if="selectedLeftIndicator">
               <LegendRank :indicator="selectedLeftIndicator" />
             </div>
           </div>
@@ -61,18 +61,18 @@
       </template>
       <template #text>
         <div class="actual-legend-bit">
-          <div v-if="selectedRightIndicator.type === 'rank'">
-            <LegendRank :indicator="selectedRightIndicator" />
-          </div>
-          <div v-else-if="selectedRightIndicator.type === 'pct'">
-            <LegendPct :indicator="selectedRightIndicator" />
-          </div>
-          <div v-else-if="selectedRightIndicator.type === 'dec'">
-            <LegendDec :indicator="selectedRightIndicator" />
-          </div>
-          <div v-else>
-            <LegendRank :indicator="selectedRightIndicator" />
-          </div>
+           <div v-if="selectedRightIndicator?.type === 'rank'">
+             <LegendRank :indicator="selectedRightIndicator" />
+           </div>
+           <div v-else-if="selectedRightIndicator?.type === 'pct'">
+             <LegendPct :indicator="selectedRightIndicator" />
+           </div>
+           <div v-else-if="selectedRightIndicator?.type === 'dec'">
+             <LegendDec :indicator="selectedRightIndicator" />
+           </div>
+           <div v-else-if="selectedRightIndicator">
+             <LegendRank :indicator="selectedRightIndicator" />
+           </div>
         </div>
         <v-expansion-panels v-show="selectedRightIndicator?.description" static>
           <v-expansion-panel class="more-info-expand" :text="selectedRightIndicator?.description" title="Details" />
@@ -88,12 +88,14 @@
   import { inject, onMounted, onUnmounted, ref, watch } from 'vue'
   import * as mapStyle from '@/assets/basic.json'
   import { indicators } from '@/assets/indicators.json'
+  // @ts-ignore
   import Compare from '@/assets/maplibre-gl-compare.js'
   import LegendDec from './LegendDec.vue'
   import LegendPct from './LegendPct.vue'
+  import LegendRank from './LegendRank.vue'
   import '@/assets/maplibre-gl-compare.css'
 
-  const mitt = inject('mitt')
+  const mitt = inject('mitt') as any
 
   const mapContainerLeft = ref<HTMLElement>()
   let leftMap: maplibregl.Map | null = null
@@ -117,16 +119,16 @@
   const choroplethIDs: Set<string> = new Set(['oa-england-wales-2021_ahah', 'oa-england-2011_imd', 'oa-wales-2011_imd', 'oa-scotland', 'oa-northern-ireland'])
 
   const defaultLeftIndicatorField = 'uk_imd2019_SOA_decile'
-  const leftStyle = JSON.parse(JSON.stringify(mapStyle))
+  const leftStyle = structuredClone(mapStyle)
 
   const defaultRightIndicatorField = 'ahah_v4_ah4ahah_pct'
-  const rightStyle = JSON.parse(JSON.stringify(mapStyle))
+  const rightStyle = structuredClone(mapStyle)
 
   const selectedLeftIndicatorField = ref(defaultLeftIndicatorField)
   const selectedRightIndicatorField = ref(defaultRightIndicatorField)
 
-  const selectedLeftIndicator = ref(indicators.find(i => i.field === selectedLeftIndicatorField.value))
-  const selectedRightIndicator = ref(indicators.find(i => i.field === selectedRightIndicatorField.value))
+  const selectedLeftIndicator = ref(indicators.find(i => i.field === selectedLeftIndicatorField.value) || indicators[0])
+  const selectedRightIndicator = ref(indicators.find(i => i.field === selectedRightIndicatorField.value) || indicators[0])
 
   const _window = ref(window)
   function changeIndicator (_indicator: any, map: maplibregl.Map | null, style: any, side: string) {
@@ -150,24 +152,24 @@
   changeIndicator(selectedLeftIndicator.value, null, leftStyle, 'left')
   changeIndicator(selectedRightIndicator.value, null, rightStyle, 'right')
 
-  mitt.on('go-to', target => {
+  mitt.on('go-to', (target: any) => {
     leftMap?.flyTo({ center: target.location.center, zoom: target.location.zoom })
     const newLeft = indicators.find(i => i.field === target.leftIndicator)
     const newRight = indicators.find(i => i.field === target.rightIndicator)
     //console.log(newLeft.field, newRight.field)
 
-    leftMap?.once('idle',()=>{
+    leftMap?.once('idle', () => {
       target.el.scrollTop = target.stop
     })
-      selectedLeftIndicator.value = newLeft
-      selectedRightIndicator.value = newRight
-      changeIndicator(newLeft, leftMap, leftStyle, 'left')
-      changeIndicator(newRight, rightMap, rightStyle, 'right')
+    selectedLeftIndicator.value = newLeft
+    selectedRightIndicator.value = newRight
+    changeIndicator(newLeft, leftMap, leftStyle, 'left')
+    changeIndicator(newRight, rightMap, rightStyle, 'right')
   })
 
   let _compare: Compare
 
-  let compareWidth = ref(0)
+  const compareWidth = ref(0)
   // Watch for changes in props._type and execute function based on value
   watch(() => props._type, (newType, oldType) => {
     console.log(`Type changed from ${oldType} to ${newType}`)
@@ -185,7 +187,7 @@
       })
 
       leftMap.on('mousemove', e => {
-        const features = leftMap.queryRenderedFeatures(e.point, { layers: choroplethIDs })
+        const features = leftMap?.queryRenderedFeatures(e.point, { layers: choroplethIDs })
         if (features.length === 0) return
         // console.log('LEFT MAP')
         const props = features?.map(f => f.properties)
@@ -202,16 +204,15 @@
       })
 
       rightMap.on('mousemove', e => {
-        const features = rightMap.queryRenderedFeatures(e.point, { layers: choroplethIDs })
+        const features = rightMap?.queryRenderedFeatures(e.point, { layers: choroplethIDs })
         if (features.length === 0) return
         const props = features?.map(f => f.properties)
         mitt.emit('right-update', props)
       })
     }
 
-    leftMap?.on('idle',()=>{
+    leftMap?.on('idle', () => {
       console.log(leftMap?.getCenter(), leftMap?.getZoom())
-
     })
 
     _compare = new Compare(leftMap, rightMap, comparisonContainer, { type: props._type })
