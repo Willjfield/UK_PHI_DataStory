@@ -1,0 +1,17 @@
+{
+    "name": "PHI-UK",
+    "display": "fullscreen",
+    "icons": [
+        {
+            "src": "/favicons/default/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicons/default/icon-180.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ]
+    
+}

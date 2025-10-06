@@ -2,7 +2,20 @@
   "hash": "65a67968",
   "configHash": "4fdc749d",
   "lockfileHash": "c959c1eb",
-  "browserHash": "a50f6aa4",
-  "optimized": {},
+  "browserHash": "ae965876",
+  "optimized": {
+    "vue": {
+      "src": "../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "a9199f86",
+      "needsInterop": false
+    },
+    "mitt": {
+      "src": "../../node_modules/mitt/dist/mitt.mjs",
+      "file": "mitt.js",
+      "fileHash": "96178749",
+      "needsInterop": false
+    }
+  },
   "chunks": {}
 }

@@ -1,0 +1,979 @@
+{
+    "groups":{
+        "health":{
+            "description":"AHAH (the index of 'Access to Healthy Assets and Hazards') is a multi-dimensional index developed by the GeoDS for Great Britain measuring how 'healthy' neighbourhoods are. The AHAH index combines indicators under four different domains of accessibility: Retail environment, Health services,Physical environment, and Air quality."
+        },
+        "environmental":{"description":""},
+        "imd":{"description":""}
+    },
+    "indicators": [
+        {
+            "field": "ahah_v4_ah4ahah_pct",
+            "label": "Access to Healthy Assets & Hazards (AHAH) Index percentiles",
+            "group": "health",
+            "type": "pct",
+            "fill-color":  [
+                "interpolate",
+                [
+                    "linear"
+                ],
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4ahah_pct"
+                    ]
+                ],
+                0,
+                "hsl(-348, 100%, 98%)",
+                100,
+                "hsl(-348, 100%, 25%)"
+            ]
+        },
+        {
+            "field": "uk_imd2019_SOA_decile",
+            "label": "Index of Multiple Deprivation (IMD): 2019 Small Output Area, Decile",
+            "description": "Small Output Area (SOA), Grouping the most deprived 10% of SOAs as Decile 1 and the second most deprived 10% as decile 2 etc.",
+            "group":"imd",
+            "type": "dec",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "uk_imd2019_SOA_decile"
+                    ]
+                ],
+                "hsl(348, 100%, 26%)",
+                1,
+                "hsl(348, 100%, 34%)",
+                2,
+                "hsl(348, 100%, 42%)",
+                3,
+                "hsl(348, 100%, 50%)",
+                4,
+                "hsl(348, 100%, 58%)",
+                5,
+                "hsl(348, 100%, 66%)",
+                6,
+               "hsl(348, 100%, 74%)",
+                7,
+                "hsl(348, 100%, 82%)",
+                8,
+                "hsl(348, 100%, 90%)",
+                9,
+                "hsl(348, 100%, 98%)"
+            ]
+        },
+        {
+            "field": "uk_imd2019_Rank",
+            "label": "Index of Multiple Deprivation (IMD): 2019 Small Output Area (SOA), Rank",
+            "description": "A simple ranking of the Small Output Area (SOA) from most to least deprived.",
+            "group":"imd",
+            "type":"rank",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "uk_imd2019_Rank"
+                    ]
+                ],
+                "hsl(0, 100%, 25%)",
+                ["case", 
+                    ["in","E",["get","LSOA11_CD"]],
+                    5000,
+                    ["in","S",["get","LSOA11_CD"]],
+                    1000,
+                    ["in","W",["get","LSOA11_CD"]],
+                    500,
+                    0
+                ],
+                "hsl(0, 80%, 55%)",
+                10000,
+                "hsl(0, 75%, 65%)",
+                15000,
+                "hsl(0, 70%, 72%)",
+                20000,
+                "hsl(0, 65%, 80%)",
+                25000,
+                "hsl(0, 60%, 88%)",
+                30000,
+                "hsl(0, 55%, 92%)",
+                35000,
+                "hsl(0, 50%, 98%)"
+            ]
+        },
+        {
+            "field": "uk_imd2019_SOA_pct",
+            "label": "Index of Multiple Deprivation (IMD): 2019 Small Output Area (SOA), Percentile",
+            "description": "Percentage - where the most deprived 1% of SOAs are 1 and the next most deprived 1% are 2 etc.",
+            "group":"imd",
+            "type": "pct",
+            "fill-color": [
+                "interpolate",
+                [
+                    "linear"
+                ],
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "uk_imd2019_SOA_pct"
+                    ]
+                ],
+                0,
+                "hsl(55, 100%, 98%)",
+                100,
+                "hsl(55, 100%, 25%)"
+            ]
+        },
+        {
+            "field": "uk_imd2019_LA_Rank",
+            "label": "Index of Multiple Deprivation (IMD): 2019 Large Areas (LA), Rank",
+            "description": "A simple ranking of the Large Area (LA) from most to least deprived.",
+            "group":"imd",
+            "type":"rank",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "uk_imd2019_LA_Rank"
+                    ]
+                ],
+                "hsl(60, 100%, 25%)",
+                50,
+                "hsl(60, 90%, 35%)",
+                100,
+                "hsl(60, 85%, 45%)",
+                150,
+                "hsl(60, 80%, 55%)",
+                200,
+                "hsl(60, 75%, 65%)",
+                250,
+                "hsl(60, 70%, 72%)",
+                300,
+                "hsl(60, 65%, 80%)",
+                350,
+                "hsl(60, 60%, 88%)"
+            ]
+        },
+        {
+            "field": "uk_imd2019_LA_pct",
+            "label": "Index of Multiple Deprivation (IMD): 2019 Large Areas (LA), Percentile",
+            "description": "Percentage - where the most deprived 1% of LAs are 1 and the next most deprived 1% are 2 etc.",
+            "group":"imd",
+            "type": "pct",
+            "fill-color": [
+                "interpolate",
+                [
+                    "linear"
+                ],
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "uk_imd2019_LA_pct"
+                    ]
+                ],
+                0,
+                "hsl(55, 100%, 98%)",
+                100,
+                "hsl(55, 100%, 25%)"
+            ]
+        },
+        {
+            "field": "uk_imd2019_LA_decile",
+            "label": "Index of Multiple Deprivation (IMD): 2019 Large Areas (LA), Decile",
+            "description": "Grouping the most deprived 10% of LAs as Decile 1 and the second most deprived 10% as decile 2 etc.",
+            "group":"imd",
+            "type": "dec",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "uk_imd2019_LA_decile"
+                    ]
+                ],
+                "hsl(120, 100%, 25%)",
+                1,
+                "hsl(120, 90%, 35%)",
+                2,
+                "hsl(120, 85%, 45%)",
+                3,
+                "hsl(120, 80%, 55%)",
+                4,
+                "hsl(120, 75%, 65%)",
+                5,
+                "hsl(120, 70%, 72%)",
+                6,
+                "hsl(120, 65%, 80%)",
+                7,
+                "hsl(120, 60%, 88%)",
+                8,
+                "hsl(120, 55%, 92%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4blue_rnk",
+            "label": "Bluespace Index Ranked",
+            "type":"rank",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4blue_rnk"
+                    ]
+                ],
+                "hsl(210, 100%, 25%)",
+                5000,
+                "hsl(210, 90%, 35%)",
+                10000,
+                "hsl(210, 85%, 45%)",
+                15000,
+                "hsl(210, 80%, 55%)",
+                20000,
+                "hsl(210, 75%, 65%)",
+                25000,
+                "hsl(210, 70%, 72%)",
+                30000,
+                "hsl(210, 65%, 80%)",
+                35000,
+                "hsl(210, 60%, 88%)",
+                40000,
+                "hsl(210, 55%, 92%)",
+                45000,
+                "hsl(210, 50%, 98%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4blue_pct",
+            "label": "Bluespace Index percentiles",
+            "group":"environmental",
+            "type": "pct",
+            "fill-color": [
+                "interpolate",
+                [
+                    "linear"
+                ],
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4blue_pct"
+                    ]
+                ],
+                0,
+                "hsl(55, 100%, 98%)",
+                100,
+                "hsl(55, 100%, 25%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4no2",
+            "label": "Annual mean Nitrogen Dioxide (ugm3)",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4no2"
+                    ]
+                ],
+                "hsl(10, 100%, 25%)",
+                1,
+                "hsl(10, 90%, 35%)",
+                2,
+                "hsl(10, 85%, 45%)",
+                3,
+                "hsl(10, 80%, 55%)",
+                4,
+                "hsl(10, 75%, 65%)",
+                5,
+                "hsl(10, 70%, 72%)",
+                6,
+                "hsl(10, 65%, 80%)",
+                7,
+                "hsl(10, 60%, 88%)",
+                8,
+                "hsl(10, 55%, 92%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4no2_rnk",
+            "label": "Nitrogen Dioxide Index Ranked",
+            "type":"rank",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4no2_rnk"
+                    ]
+                ],
+                "hsl(15, 100%, 25%)",
+                5000,
+                "hsl(15, 90%, 35%)",
+                10000,
+                "hsl(15, 85%, 45%)",
+                15000,
+                "hsl(15, 80%, 55%)",
+                20000,
+                "hsl(15, 75%, 65%)",
+                25000,
+                "hsl(15, 70%, 72%)",
+                30000,
+                "hsl(15, 65%, 80%)",
+                35000,
+                "hsl(15, 60%, 88%)",
+                40000,
+                "hsl(15, 55%, 92%)",
+                45000,
+                "hsl(15, 50%, 98%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4no2_pct",
+            "label": "Nitrogen Dioxide Index percentiles",
+            "group":"environmental",
+            "type": "pct",
+            "fill-color": [
+                "interpolate",
+                [
+                    "linear"
+                ],
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4no2_pct"
+                    ]
+                ],
+                0,
+                "hsl(55, 100%, 98%)",
+                100,
+                "hsl(55, 100%, 25%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4so2",
+            "label": "Annual mean Sulphur Dioxide (ugm3)",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4so2"
+                    ]
+                ],
+                "hsl(25, 100%, 25%)",
+                1,
+                "hsl(25, 90%, 35%)",
+                2,
+                "hsl(25, 85%, 45%)",
+                3,
+                "hsl(25, 80%, 55%)",
+                4,
+                "hsl(25, 75%, 65%)",
+                5,
+                "hsl(25, 70%, 72%)",
+                6,
+                "hsl(25, 65%, 80%)",
+                7,
+                "hsl(25, 60%, 88%)",
+                8,
+                "hsl(25, 55%, 92%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4so2_rnk",
+            "label": "Sulphur Dioxide Index Ranked",
+            "type":"rank",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4so2_rnk"
+                    ]
+                ],
+                "hsl(35, 100%, 25%)",
+                5000,
+                "hsl(35, 90%, 35%)",
+                10000,
+                "hsl(35, 85%, 45%)",
+                15000,
+                "hsl(35, 80%, 55%)",
+                20000,
+                "hsl(35, 75%, 65%)",
+                25000,
+                "hsl(35, 70%, 72%)",
+                30000,
+                "hsl(35, 65%, 80%)",
+                35000,
+                "hsl(35, 60%, 88%)",
+                40000,
+                "hsl(35, 55%, 92%)",
+                45000,
+                "hsl(35, 50%, 98%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4so2_pct",
+            "label": "Sulphur Dioxide Index percentiles",
+            "group":"environmental",
+            "type": "pct",
+            "fill-color": [
+                "interpolate",
+                [
+                    "linear"
+                ],
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4so2_pct"
+                    ]
+                ],
+                0,
+                "hsl(55, 100%, 98%)",
+                100,
+                "hsl(55, 100%, 25%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4pm10",
+            "label": "Annual mean Particulate Matter (PM10)",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4pm10"
+                    ]
+                ],
+                "hsl(45, 100%, 25%)",
+                1,
+                "hsl(45, 90%, 35%)",
+                2,
+                "hsl(45, 85%, 45%)",
+                3,
+                "hsl(45, 80%, 55%)",
+                4,
+                "hsl(45, 75%, 65%)",
+                5,
+                "hsl(45, 70%, 72%)",
+                6,
+                "hsl(45, 65%, 80%)",
+                7,
+                "hsl(45, 60%, 88%)",
+                8,
+                "hsl(45, 55%, 92%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4pm10_rnk",
+            "label": "Particulate Matter (PM10) Index Ranked",
+            "type":"rank",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4pm10_rnk"
+                    ]
+                ],
+                "hsl(50, 100%, 25%)",
+                5000,
+                "hsl(50, 90%, 35%)",
+                10000,
+                "hsl(50, 85%, 45%)",
+                15000,
+                "hsl(50, 80%, 55%)",
+                20000,
+                "hsl(50, 75%, 65%)",
+                25000,
+                "hsl(50, 70%, 72%)",
+                30000,
+                "hsl(50, 65%, 80%)",
+                35000,
+                "hsl(50, 60%, 88%)",
+                40000,
+                "hsl(50, 55%, 92%)",
+                45000,
+                "hsl(50, 50%, 98%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4pm10_pct",
+            "label": "Particulate Matter (PM10) Index percentiles",
+            "group":"environmental",
+            "type": "pct",
+            "fill-color": [
+                "interpolate",
+                [
+                    "linear"
+                ],
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4pm10_pct"
+                    ]
+                ],
+                0,
+                "hsl(55, 100%, 98%)",
+                100,
+                "hsl(55, 100%, 25%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4h",
+            "label": "Health Domain Score",
+            "group":"health",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4h"
+                    ]
+                ],
+                "hsl(140, 100%, 25%)",
+                1,
+                "hsl(140, 90%, 35%)",
+                2,
+                "hsl(140, 85%, 45%)",
+                3,
+                "hsl(140, 80%, 55%)",
+                4,
+                "hsl(140, 75%, 65%)",
+                5,
+                "hsl(140, 70%, 72%)",
+                6,
+                "hsl(140, 65%, 80%)",
+                7,
+                "hsl(140, 60%, 88%)",
+                8,
+                "hsl(140, 55%, 92%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4h_rnk",
+            "label": "Health Index Ranked",
+            "type":"rank",
+            "group":"health",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4h_rnk"
+                    ]
+                ],
+                "hsl(150, 100%, 25%)",
+                5000,
+                "hsl(150, 90%, 35%)",
+                10000,
+                "hsl(150, 85%, 45%)",
+                15000,
+                "hsl(150, 80%, 55%)",
+                20000,
+                "hsl(150, 75%, 65%)",
+                25000,
+                "hsl(150, 70%, 72%)",
+                30000,
+                "hsl(150, 65%, 80%)",
+                35000,
+                "hsl(150, 60%, 88%)",
+                40000,
+                "hsl(150, 55%, 92%)",
+                45000,
+                "hsl(150, 50%, 98%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4h_pct",
+            "label": "Health Index percentiles",
+            "group":"health",
+            "type": "pct",
+            "fill-color": [
+                "interpolate",
+                [
+                    "linear"
+                ],
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4h_pct"
+                    ]
+                ],
+                0,
+                "hsl(55, 100%, 98%)",
+                100,
+                "hsl(55, 100%, 25%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4g",
+            "label": "Green/Bluespace Domain Score",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4g"
+                    ]
+                ],
+                "hsl(170, 100%, 25%)",
+                1,
+                "hsl(170, 90%, 35%)",
+                2,
+                "hsl(170, 85%, 45%)",
+                3,
+                "hsl(170, 80%, 55%)",
+                4,
+                "hsl(170, 75%, 65%)",
+                5,
+                "hsl(170, 70%, 72%)",
+                6,
+                "hsl(170, 65%, 80%)",
+                7,
+                "hsl(170, 60%, 88%)",
+                8,
+                "hsl(170, 55%, 92%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4g_rnk",
+            "label": "Green/Bluespace Index Ranked",
+            "type":"rank",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4g_rnk"
+                    ]
+                ],
+                "hsl(175, 100%, 25%)",
+                5000,
+                "hsl(175, 90%, 35%)",
+                10000,
+                "hsl(175, 85%, 45%)",
+                15000,
+                "hsl(175, 80%, 55%)",
+                20000,
+                "hsl(175, 75%, 65%)",
+                25000,
+                "hsl(175, 70%, 72%)",
+                30000,
+                "hsl(175, 65%, 80%)",
+                35000,
+                "hsl(175, 60%, 88%)",
+                40000,
+                "hsl(175, 55%, 92%)",
+                45000,
+                "hsl(175, 50%, 98%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4g_pct",
+            "label": "Green/Bluespace Index percentiles",
+            "group":"environmental",
+            "type": "pct",
+            "fill-color": [
+                "interpolate",
+                [
+                    "linear"
+                ],
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4h_pct"
+                    ]
+                ],
+                0,
+                "hsl(55, 100%, 98%)",
+                100,
+                "hsl(55, 100%, 25%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4e",
+            "label": "Air Quality Domain Score",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4e"
+                    ]
+                ],
+                "hsl(25, 100%, 20%)",
+                1,
+                "hsl(25, 90%, 30%)",
+                2,
+                "hsl(25, 85%, 40%)",
+                3,
+                "hsl(25, 80%, 50%)",
+                4,
+                "hsl(25, 75%, 60%)",
+                5,
+                "hsl(25, 70%, 70%)",
+                6,
+                "hsl(25, 65%, 78%)",
+                7,
+                "hsl(25, 60%, 86%)",
+                8,
+                "hsl(25, 55%, 92%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4e_rnk",
+            "label": "Air Quality Index Ranked",
+            "type":"rank",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4e_rnk"
+                    ]
+                ],
+                "hsl(5, 100%, 25%)",
+                5000,
+                "hsl(5, 90%, 35%)",
+                10000,
+                "hsl(5, 85%, 45%)",
+                15000,
+                "hsl(5, 80%, 55%)",
+                20000,
+                "hsl(5, 75%, 65%)",
+                25000,
+                "hsl(5, 70%, 72%)",
+                30000,
+                "hsl(5, 65%, 80%)",
+                35000,
+                "hsl(5, 60%, 88%)",
+                40000,
+                "hsl(5, 55%, 92%)",
+                45000,
+                "hsl(5, 50%, 98%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4e_pct",
+            "label": "Air Quality Index percentiles",
+            "group":"environmental",
+            "type": "pct",
+            "fill-color": [
+                "interpolate",
+                [
+                    "linear"
+                ],
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4h_pct"
+                    ]
+                ],
+                0,
+                "hsl(55, 100%, 98%)",
+                100,
+                "hsl(55, 100%, 25%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4ahah",
+            "label": "Access to Healthy Assets and Hazards (AHAH) Index Percentiles",
+            "group": "health",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4ahah"
+                    ]
+                ],
+                "hsl(260, 100%, 25%)",
+                1,
+                "hsl(260, 90%, 35%)",
+                2,
+                "hsl(260, 85%, 45%)",
+                3,
+                "hsl(260, 80%, 55%)",
+                4,
+                "hsl(260, 75%, 65%)",
+                5,
+                "hsl(260, 70%, 72%)",
+                6,
+                "hsl(260, 65%, 80%)",
+                7,
+                "hsl(260, 60%, 88%)",
+                8,
+                "hsl(260, 55%, 92%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4ahah_rnk",
+            "label": "Access to Healthy Assets and Hazards (AHAH) Index Ranked",
+            "type":"rank",
+            "group":"health",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4ahah_rnk"
+                    ]
+                ],
+                "hsl(265, 100%, 25%)",
+                5000,
+                "hsl(265, 90%, 35%)",
+                10000,
+                "hsl(265, 85%, 45%)",
+                15000,
+                "hsl(265, 80%, 55%)",
+                20000,
+                "hsl(265, 75%, 65%)",
+                25000,
+                "hsl(265, 70%, 72%)",
+                30000,
+                "hsl(265, 65%, 80%)",
+                35000,
+                "hsl(265, 60%, 88%)",
+                40000,
+                "hsl(265, 55%, 92%)",
+                45000,
+                "hsl(265, 50%, 98%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4gpas",
+            "label": "NDVI value indicating Passive Green Space",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4gpas"
+                    ]
+                ],
+                "hsl(300, 100%, 25%)",
+                0.10,
+                "hsl(300, 90%, 35%)",
+                0.20,
+                "hsl(300, 85%, 45%)",
+                0.30,
+                "hsl(300, 80%, 55%)",
+                0.40,
+                "hsl(300, 75%, 65%)",
+                0.50,
+                "hsl(300, 70%, 72%)",
+                0.60,
+                "hsl(300, 65%, 80%)",
+                0.70,
+                "hsl(300, 60%, 88%)",
+                0.80,
+                "hsl(300, 55%, 92%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4gpas_rnk",
+            "label": "Passive Green/Bluespace Index Ranked",
+            "type":"rank",
+            "group":"environmental",
+            "fill-color": [
+                "step",
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4gpas_rnk"
+                    ]
+                ],
+                "hsl(305, 100%, 25%)",
+                5000,
+                "hsl(305, 90%, 35%)",
+                10000,
+                "hsl(305, 85%, 45%)",
+                15000,
+                "hsl(305, 80%, 55%)",
+                20000,
+                "hsl(305, 75%, 65%)",
+                25000,
+                "hsl(305, 70%, 72%)",
+                30000,
+                "hsl(305, 65%, 80%)",
+                35000,
+                "hsl(305, 60%, 88%)",
+                40000,
+                "hsl(305, 55%, 92%)",
+                45000,
+                "hsl(305, 50%, 98%)"
+            ]
+        },
+        {
+            "field": "ahah_v4_ah4gpas_pct",
+            "label": "Passive Green/Bluespace Index percentiles",
+            "group":"environmental",
+            "type": "pct",
+            "fill-color": [
+                "interpolate",
+                [
+                    "linear"
+                ],
+                [
+                    "to-number",
+                    [
+                        "get",
+                        "ahah_v4_ah4h_pct"
+                    ]
+                ],
+                0,
+                "hsl(55, 100%, 98%)",
+                100,
+                "hsl(55, 100%, 25%)"
+            ]
+        }
+    ]
+}

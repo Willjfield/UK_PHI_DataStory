@@ -1,0 +1,27 @@
+ah4blue,Drive-time to nearest Bluespace (minutes)
+ah4blue_rnk,Bluespace Index Ranked
+ah4blue_pct,Bluespace Index percentiles
+ah4no2,Annual mean Nitrogen Dioxide (ugm3)
+ah4no2_rnk,Nitrogen Dioxide Index Ranked
+ah4no2_pct,Nitrogen Dioxide Index percentiles
+ah4so2,Annual mean Sulphur Dioxide (ugm3)
+ah4so2_rnk,Sulphur Dioxide Index Ranked
+ah4so2_pct,Sulphur Dioxide Index percentiles
+ah4pm10,Annual mean Particulate Matter (ugm3)
+ah4pm10_rnk,Particulate Matter Index Ranked
+ah4pm10_pct,Particulate Matter Index percentiles
+ah4h,Health Domain Score
+ah4h_rnk,Health Index Ranked
+ah4h_pct,Health Index percentiles
+ah4g,Green/Bluespace Domain Score
+ah4g_rnk,Green/Bluespace Index Ranked
+ah4g_pct,Green/Bluespace Index percentiles
+ah4e,Air Quality Domain Score
+ah4e_rnk,Air Quality Index Ranked
+ah4e_pct,Air Quality Index percentiles
+ah4ahah,Access to Healthy Assets and Hazards Index Score
+ah4ahah_rnk,AHAH Index Ranked
+ah4ahah_pct,AHAH Index percentiles
+ah4gpas,NDVI value indicating Passive Green Space
+ah4gpas_rnk,Green/Bluespace Index Ranked
+ah4gpas_pct,Green/Bluespace Index percentiles
