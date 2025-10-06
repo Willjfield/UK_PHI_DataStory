@@ -70,7 +70,7 @@
         {
             "field": "uk_imd2019_SOA_pct",
             "label": "Index of Multiple Deprivation (IMD): 2019 Small Output Area (SOA), Percentile",
-            "description": "Percentage - where the most deprived 1% of SOAs are 1 and the next most deprived 1% are 2 etc.",
+            "description": "Percentage - where the most deprived 1% of SOAs are 1 (DARK) and the next most deprived 1% are 2 (LIGHTER) etc.",
             "group":"imd",
             "type": "pct",
             "fill-color": [
@@ -86,9 +86,9 @@
                     ]
                 ],
                 0,
-                "hsl(55, 100%, 98%)",
+                "hsl(30, 100%, 25%)",
                 100,
-                "hsl(55, 100%, 25%)"
+                "hsl(30, 100%, 98%)"
             ]
         },
         {
@@ -190,7 +190,7 @@
             "label": "Bluespace Index percentiles",
             "group":"environmental",
             "type": "pct",
-            "description":"UK wide percentile of each area ranked by access to blue space.",
+            "description":"UK wide percentile of each area ranked by access to blue space. Lighter colors means generally easier access to natural bodies of water.",
             "fill-color": [
                 "interpolate",
                 [
@@ -401,7 +401,10 @@
             "description":"Annual mean concentration of particulate matter (PM10) measured in micrograms per cubic metre (µg/m³).",
             "group":"environmental",
             "fill-color": [
-                "step",
+                "interpolate",
+                [
+                    "linear"
+                ],
                 [
                     "to-number",
                     [
@@ -409,23 +412,10 @@
                         "ahah_v4_ah4pm10"
                     ]
                 ],
-                "hsl(45, 100%, 25%)",
-                1,
-                "hsl(45, 90%, 35%)",
-                2,
-                "hsl(45, 85%, 45%)",
-                3,
-                "hsl(45, 80%, 55%)",
-                4,
-                "hsl(45, 75%, 65%)",
-                5,
-                "hsl(45, 70%, 72%)",
-                6,
-                "hsl(45, 65%, 80%)",
-                7,
-                "hsl(45, 60%, 88%)",
-                8,
-                "hsl(45, 55%, 92%)"
+                0,
+                "hsl(55, 100%, 100%)",
+                21,
+                "hsl(55, 100%, 5%)"
             ]
         },
         {
@@ -469,7 +459,7 @@
             "label": "Particulate Matter (PM10) Index percentiles",
             "group":"environmental",
             "type": "pct",
-            "description":"UK wide percentile of areas by particulate matter (PM10) level.",
+            "description":"UK wide percentile of areas by particulate matter (PM10) level. Darker colors mean generally more particulate matter in the air.",
             "fill-color": [
                 "interpolate",
                 [

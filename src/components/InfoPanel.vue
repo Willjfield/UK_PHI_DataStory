@@ -1,6 +1,4 @@
 <template>
-  <!-- <v-card class="info-panel" max-height="20%" width="40%">
-    <template #text> -->
   <div class="info-panel">
     <v-card
       v-if="leftProps"
@@ -27,8 +25,6 @@
     </template>
     </v-card>
   </div>
-  <!-- </template>
-  </v-card> -->
 </template>
 <script lang="ts" setup>
   import type { EventEmitter } from 'mitt'
@@ -50,12 +46,10 @@
   })
 
   mitt.on('left-update', props => {
-    console.log(props)
     leftProps.value = props.length === 1 ? { ...props[0] } : { ...props[0], ...props[1] }
   })
 
   mitt.on('right-update', props => {
-    console.log(props)
     rightProps.value = props.length === 1 ? { ...props[0] } : { ...props[0], ...props[1] }
   })
 

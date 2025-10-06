@@ -1,10 +1,8 @@
 <!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <v-container class="pa-0" fluid height="100dvh">
-    <v-switch
-      v-model="compareType" class="map-type-switch ma-2" density="compact" false-value="slider" hide-details
-      true-value="sideBySide"
-    >
+    <v-switch v-model="compareType" class="map-type-switch ma-2" density="compact" false-value="slider" hide-details
+      true-value="sideBySide">
       <template #prepend>
         <div class="divide" />
         <v-icon id="split-map">mdi-map</v-icon>
@@ -13,34 +11,26 @@
         <v-icon>mdi-map</v-icon>|<v-icon>mdi-map</v-icon>
       </template>
     </v-switch>
-    <div :class="{collapsed:sidebarCollapsed}">
+    <div :class="{ collapsed: sidebarCollapsed }">
       <InfoPanel />
     </div>
     <v-row class="my-0" max-height="100dvh">
       <v-col class="pa-0 transition-all duration-500" :cols="sidebarCollapsed ? 12 : 8">
-        <Map
-          :_center="[-2, 55]" :_collapsed="sidebarCollapsed" :_type="compareType" :_zoom="4"
-          style="height: 100dvh; width: 100%;"
-        />
-        <v-btn
-          class="expand toggle-btn" :class="{ sidebarCollapsed }" color="primary"
+        <Map :_center="[-2, 55]" :_collapsed="sidebarCollapsed" :_type="compareType" :_zoom="4"
+          style="height: 100dvh; width: 100%;" />
+        <v-btn class="expand toggle-btn" :class="{ sidebarCollapsed }" color="primary"
           :prepend-icon="sidebarCollapsed ? 'mdi-chevron-left' : 'mdi-chevron-right'" size="x-small" stacked
-          text="expand" variant="flat" @click="toggleSidebar"
-        />
+          text="expand" variant="flat" @click="toggleSidebar" />
       </v-col>
-      <v-col
-        class="pa-0 transition-all duration-500" :cols="sidebarCollapsed ? 0 : 4" :style="{
-          zIndex: 3,
-          overflowY: 'hidden',
-          width: sidebarCollapsed ? '0' : 'auto',
-          maxHeight: '100dvh'
-        }"
-      >
-        <v-btn
-          class="toggle-btn" :class="{ sidebarCollapsed }" color="primary"
+      <v-col class="pa-0 transition-all duration-500" :cols="sidebarCollapsed ? 0 : 4" :style="{
+        zIndex: 3,
+        overflowY: 'hidden',
+        width: sidebarCollapsed ? '0' : 'auto',
+        maxHeight: '100dvh'
+      }">
+        <v-btn class="toggle-btn" :class="{ sidebarCollapsed }" color="primary"
           :prepend-icon="sidebarCollapsed ? 'mdi-chevron-left' : 'mdi-chevron-right'" rounded="0" size="x-small" stacked
-          text="collapse" variant="flat" @click="toggleSidebar"
-        />
+          text="collapse" variant="flat" @click="toggleSidebar" />
         <div class="sidebar-content" :class="{ 'sidebar-hidden': sidebarCollapsed }">
           <div class="py-2" style="height: 3.5em; width:100%;">
             <v-img max-width="180px" src="/phi-uk_logo_small.png" style="margin:0 auto;" />
@@ -50,16 +40,27 @@
             <div class="fade-bottom" />
             <v-card class="mx-8" title="Multiple Disadvantage vs. Access to Healthy Assets and Hazards" variant="text">
               <template #text>
-                This map compares <a href="https://data.geods.ac.uk/dataset/index-of-multiple-deprivation-imd">indices
-                  of multiple disadvantage (IMD)</a> data from 2019 collected and published by The Geographic Data
-                Service along
-                with indicators of <a
-                  href="https://data.geods.ac.uk/dataset/access-to-healthy-assets-hazards-ahah"
-                >Access to Healthy Assets
-                  and Hazards (AHAH)</a>
-                You can scroll down in this panel for a curated story of places of interest or explore the data on the map freely.
+                <p>This map compares <a
+                    href="https://data.geods.ac.uk/dataset/index-of-multiple-deprivation-imd">indices
+                    of multiple deprivation (IMD)</a> data from 2019 collected and published by The Geographic Data
+                  Service along
+                  with indicators of <a
+                    href="https://data.geods.ac.uk/dataset/access-to-healthy-assets-hazards-ahah">Access to Healthy
+                    Assets and Hazards (AHAH)</a>. Each nation measures deprivation in a slightly different way but the
+                  broad themes include income, employment, education, health, crime, barriers to housing and services,
+                  and the living environment. As you scroll through this sidebar, you will see the correlation of
+                  various environmental factors from the AHAH data with the IMD in various places across the UK. Or you
+                  can explore the map freely on your own.
+                </p>
+                <p>
+                  IMD
+                </p>
+                <v-divider class="my-4"></v-divider>
+                You can scroll down in this panel for a curated story of places of interest or explore the data on the
+                map freely.
               </template>
             </v-card>
+
             <v-card class="pa-8" variant="text">
               <v-expansion-panels>
                 <v-expansion-panel style="line-height: 1.1em;" title="What is Multiple Disadvantage?">
@@ -95,9 +96,8 @@
                 <v-expansion-panel style="line-height: 1.1em;" title="What are the geographies used?">
                   <template #text>
                     <h4>From the <a
-                      href="https://www.ons.gov.uk/methodology/geography/ukgeographies/statisticalgeographies"
-                    >Office
-                      for National Statistics</a>:</h4>
+                        href="https://www.ons.gov.uk/methodology/geography/ukgeographies/statisticalgeographies">Office
+                        for National Statistics</a>:</h4>
                     <br></br>
                     The geographies used on the map are Lower layer Super Output Areas (LSOAs) for England and Wales,
                     Data Zones for Scotland and Super Output Areas or Wards (when data is available) for Northern
@@ -107,30 +107,37 @@
               </v-expansion-panels>
             </v-card>
             <v-divider />
-            <v-card class="ma-8" subtitle="AHAH vs. IMD" title="Glasgow, Scotland" variant="text">
+            <div class="story-container">
+            <v-card class="ma-8" subtitle="IMD percentile vs. PM10 Particulate Matter in the Air"
+              title="Glasgow, Scotland" variant="text">
               <template #text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis ex sit amet efficitur dictum.
-                Vivamus et volutpat sem, quis pretium nisi. Fusce mi urna, gravida eu justo in, molestie congue turpis.
-                Curabitur dapibus erat ac nunc suscipit tempor. Ut finibus facilisis risus. Nulla facilisi. Donec mattis
-                cursus imperdiet. Sed sed eleifend lectus. Phasellus dolor nulla, fringilla eget felis non, viverra
-                mattis orci. Suspendisse et finibus velit, nec finibus lorem. Etiam lorem leo, malesuada ut nisl at,
-                dapibus faucibus odio. Nullam auctor finibus pulvinar. Suspendisse vitae tortor in lectus vehicula
-                ornare in vel nunc. Suspendisse eleifend leo lectus, sit amet gravida sem scelerisque finibus.
+                In this view of Glasgow, the left side displays the Index of Multiple Deprivation showing a higher level
+                of deprivation around the city centre, north east of the city centre, Gorbals, and Govan. On the right,
+                the mean annual PM10 particulate matter in the area displays a very similar pattern. Notably, the
+                neighborhoods of Hillhead, Dowanhill, and Kelvinside, though directly between two areas with high
+                Multiple Deprevation and PM10 levels, is lower in both.
               </template>
             </v-card>
-            <v-divider />
-            <v-card class="ma-8" subtitle="Var 2 vs. Var 3" title="Manchester, England" variant="text">
+            <!-- <v-divider /> -->
+            <v-card class="ma-8" subtitle="IMD percentile vs. NDVI value indicating of Passive Green Space"
+              title="Glasgow, Scotland" variant="text">
               <template #text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis ex sit amet efficitur dictum.
-                Vivamus et volutpat sem, quis pretium nisi. Fusce mi urna, gravida eu justo in, molestie congue turpis.
-                Curabitur dapibus erat ac nunc suscipit tempor. Ut finibus facilisis risus. Nulla facilisi. Donec mattis
-                cursus imperdiet. Sed sed eleifend lectus. Phasellus dolor nulla, fringilla eget felis non, viverra
-                mattis orci. Suspendisse et finibus velit, nec finibus lorem. Etiam lorem leo, malesuada ut nisl at,
-                dapibus faucibus odio. Nullam auctor finibus pulvinar. Suspendisse vitae tortor in lectus vehicula
-                ornare in vel nunc. Suspendisse eleifend leo lectus, sit amet gravida sem scelerisque finibus.
+                However, while NDVI (Normalized Difference Vegetation Index) is a reliable marker of tree canopy and
+                other vegetation, the green space it reveals in Glasgow does not seem to map as neatly onto the IMD
+                percentile.
+              </template>
+            </v-card>
+            <!-- <v-divider /> -->
+            <v-card class="ma-8" subtitle="IMD percentile vs. PM10 Particulate Matter in the Air"
+              title="Liverpool, England" variant="text">
+              <template #text>
+                The same correlation can be seen in Liverpool though its seaside location likely complicates the relationship with currents of fresh air coming in.
               </template>
             </v-card>
           </div>
+            <div style="width:100%; height:50%;"></div>
+          </div>
+
           <v-btn block class="scroll-prompt" prepend-icon="mdi-chevron-down" variant="plain" />
 
         </div>
@@ -141,46 +148,73 @@
 </template>
 
 <script lang="ts" setup>
-  import { inject, ref } from 'vue'
-  import InfoPanel from '@/components/InfoPanel.vue'
-  import Map from '@/components/map.vue'
-  const sidebarCollapsed = ref(false)
-  const compareType = ref('slider')
-  const scrollableContainer = ref(null)
+import { inject, ref } from 'vue'
+import InfoPanel from '@/components/InfoPanel.vue'
+import Map from '@/components/map.vue'
+const sidebarCollapsed = ref(false)
+const compareType = ref('slider')
+const scrollableContainer = ref(null)
 
-  const mitt = inject('mitt')
+const mitt = inject('mitt')
 
-  const stops = [{
-    trigger: 250,
-    target: 417,
-    hasPlayed: false,
-    location: {
-      zoom: 10.44,
-      center: [-4.2607, 55.8537],
-    },
-    leftIndicator:'ahah_v4_ah4ahah_pct',
-    rightIndicator:'ahah_v4_ah4blue_pct'
-  }]
+const stops = [{
+  trigger: 300,
+  target: 620,
+  hasPlayed: false,
+  location: {
+    zoom: 10.44,
+    center: [-4.2607, 55.8537],
+  },
+  leftIndicator: 'uk_imd2019_SOA_pct',
+  rightIndicator: 'ahah_v4_ah4pm10'
+},
+{
+  trigger: 870,
+  target: 996,
+  hasPlayed: false,
+  location: {
+    zoom: 10.44,
+    center: [-4.2607, 55.8537],
+  },
+  leftIndicator: 'uk_imd2019_SOA_pct',
+  rightIndicator: 'ahah_v4_ah4gpas'
+},
+{
+  trigger: 1100,
+  target: 1320,
+  hasPlayed: false,
+  location: {
+    zoom: 10,
+    center: [-2.9614034473615902, 53.432785564299905],
+  },
+  leftIndicator: 'uk_imd2019_SOA_pct',
+  rightIndicator: 'ahah_v4_ah4pm10'
+},
 
-  onMounted(() => {
-    scrollableContainer.value.addEventListener('scroll', e => {
-      const scrollTop = e.target.scrollTop
-      for (const _stop of stops) {
-        if (scrollTop > _stop.trigger && !_stop.hasPlayed) {
-          scrollableContainer.value.style.pointerEvents = 'none'
-          e.target.scrollTop = _stop.target
-          _stop.hasPlayed = true
-          mitt.emit('go-to', {location:_stop.location, leftIndicator:_stop.leftIndicator, rightIndicator:_stop.rightIndicator})
+]
 
-          setTimeout(() => scrollableContainer.value.style.pointerEvents = 'all', 5000)
-        }
+
+
+onMounted(() => {
+  let isAnimating = false;
+  scrollableContainer.value.addEventListener('scroll', e => {
+    const scrollTop = e.target.scrollTop
+    for (const _stop of stops) {
+      if (scrollTop > _stop.trigger && !_stop.hasPlayed && !isAnimating) {
+        isAnimating = true
+        _stop.hasPlayed = true
+        e.target.scrollTop = _stop.target
+        mitt.emit('go-to', { location: _stop.location, leftIndicator: _stop.leftIndicator, rightIndicator: _stop.rightIndicator, el: e.target, stop: _stop.target })
+
+        setTimeout(() => isAnimating = false, 5000)
       }
-    })
+    }
   })
+})
 
-  function toggleSidebar () {
-    sidebarCollapsed.value = !sidebarCollapsed.value
-  }
+function toggleSidebar() {
+  sidebarCollapsed.value = !sidebarCollapsed.value
+}
 </script>
 
 <style scoped>
@@ -273,6 +307,9 @@
 }
 </style>
 <style>
+.story-container .v-card{
+  margin-bottom: 25dvh !important;
+}
 .map-type-switch.v-input--horizontal .v-input__prepend {
   margin-inline-end: 8px;
 }

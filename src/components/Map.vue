@@ -156,12 +156,13 @@
     const newRight = indicators.find(i => i.field === target.rightIndicator)
     //console.log(newLeft.field, newRight.field)
 
-    //leftMap?.once('idle',()=>{
+    leftMap?.once('idle',()=>{
+      target.el.scrollTop = target.stop
+    })
       selectedLeftIndicator.value = newLeft
       selectedRightIndicator.value = newRight
       changeIndicator(newLeft, leftMap, leftStyle, 'left')
       changeIndicator(newRight, rightMap, rightStyle, 'right')
-    //})
   })
 
   let _compare: Compare
@@ -181,7 +182,6 @@
         style: leftStyle,
         center: props._center,
         zoom: props._zoom,
-        hash: true,
       })
 
       leftMap.on('mousemove', e => {
@@ -208,6 +208,11 @@
         mitt.emit('right-update', props)
       })
     }
+
+    leftMap?.on('idle',()=>{
+      console.log(leftMap?.getCenter(), leftMap?.getZoom())
+
+    })
 
     _compare = new Compare(leftMap, rightMap, comparisonContainer, { type: props._type })
 
